@@ -1,10 +1,10 @@
 var objects = [];
 var animations = [
-	{'currentSprite': 0, 'spriteDir': ['player/sprPlayerFall'], 'totalSprites': 2},
-	{'currentSprite': 0, 'spriteDir': ['player/sprPlayerIdle'], 'totalSprites': 4},
-	{'currentSprite': 0, 'spriteDir': ['player/sprPlayerRunning'], 'totalSprites': 4},
-	{'currentSprite': 0, 'spriteDir': ['player/sprPlayerJump'], 'totalSprites': 2},
-	{'currentSprite': 0, 'spriteDir': ['player/sprBullet'], 'totalSprites': 2}
+	{'currentSprite': 0, 'spriteDir': ['assets/player/sprPlayerFall'], 'totalSprites': 2},
+	{'currentSprite': 0, 'spriteDir': ['assets/player/sprPlayerIdle'], 'totalSprites': 4},
+	{'currentSprite': 0, 'spriteDir': ['assets/player/sprPlayerRunning'], 'totalSprites': 4},
+	{'currentSprite': 0, 'spriteDir': ['assets/player/sprPlayerJump'], 'totalSprites': 2},
+	{'currentSprite': 0, 'spriteDir': ['assets/player/sprBullet'], 'totalSprites': 2}
 ];
 var particles = [];
 
@@ -83,7 +83,7 @@ var levelXoffset = Math.round((windowW / 32 - 26) / 2);
 
 // Background
 bg = document.createElement("img");
-bg.src = "bg.jpg";
+bg.src = "assets/bg.jpg";
 bg.style.top = levelYoffset * 32;
 bg.style.left = levelXoffset * 32;
 bg.style.width = 26 * 32;
@@ -95,14 +95,14 @@ for (i = 0; i < terrain.length; i++) {
 		// Decorations like trees (broccoli), fences and the moon
 		Xoffset = 0, Yoffset = 0;
 		if (terrain[i] == 8) {
-			sprite = "sprMoon.png";
+			sprite = "assets/sprMoon.png";
 		}
 		if (terrain[i] == 7) {
-			sprite = "sprFence.png";
+			sprite = "assets/sprFence.png";
 			Yoffset = 32;
 		}
 		if (terrain[i] == 6) {
-			sprite = "sprBroccoli.png";
+			sprite = "assets/sprBroccoli.png";
 			Xoffset = -25;
 		}
 		addObject("ter" + i, levelXoffset * 32 + 32 * (i - 26 * Math.trunc(i / 26)) + Xoffset, levelYoffset * 32 + 32 * Math.trunc(i / 26) + Yoffset, sprite, false, false, false);
@@ -111,7 +111,7 @@ for (i = 0; i < terrain.length; i++) {
 	
 for (i = 0; i < terrain.length; i++) {
 	// Terrain and spikes
-	sprite = "sprBlock.png";
+	sprite = "assets/sprBlock.png";
 	flipV = false;
 	rotateMinus90 = false;
 	dangerous = false;
@@ -121,9 +121,9 @@ for (i = 0; i < terrain.length; i++) {
 	yOffset = 0;
 	xSpriteOffset = 0;
 	ySpriteOffset = 0;
-	if (terrain[i] == 2) sprite = "sprGrass.png";
+	if (terrain[i] == 2) sprite = "assets/sprGrass.png";
 	if (terrain[i] == 3 || terrain[i] == 4 || terrain[i] == 5) {
-		sprite = "sprSpike.png";
+		sprite = "assets/sprSpike.png";
 		dangerous = true;
 		fw = 28;
 		fh = 30;

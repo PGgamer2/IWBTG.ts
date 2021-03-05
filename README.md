@@ -1,4 +1,4 @@
-# IWBTG.js
+# [IWBTG.js](https://pggamer2.github.io/IWBTG.js/)
 A remake of the popular game [I Wanna Be The Guy](https://iwbtg.kayin.moe/) in JavaScript.
 
 It is incomplete. At the moment there's only:

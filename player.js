@@ -11,7 +11,7 @@ plElem.style.left = player['x'];
 document.body.appendChild(plElem); // Add player
 
 var gameOverSprite = document.createElement("img");
-gameOverSprite.src = "sprGameOver.png"; // Game over sprite
+gameOverSprite.src = "assets/sprGameOver.png"; // Game over sprite
 gameOverSprite.style.top = windowH / 2 - 94;
 gameOverSprite.style.left = windowW / 2 - 400;
 gameOverSprite.style.display = "none";
@@ -153,7 +153,7 @@ function playerUpdate() {
 		for (i = 0; i < player['bullets'].length; i++) {
 			// Bullet collision
 			if (overlap(player['bullets'][i]['x'], player['bullets'][i]['y'], 4, 4, obj["x"], obj["y"], obj["w"], obj["h"])) {
-				if (obj["img"] != "sprSpike.png") {
+				if (obj["img"] != "assets/sprSpike.png") {
 					player['bullets'][i]['elem'].remove();
 					player['bullets'].splice(i, 1);
 				}
