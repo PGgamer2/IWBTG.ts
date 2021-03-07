@@ -12,6 +12,7 @@ document.body.appendChild(plElem); // Add player
 
 var gameOverSprite = document.createElement("img");
 gameOverSprite.src = "assets/sprGameOver.png"; // Game over sprite
+gameOverSprite.style.zIndex = "3";
 gameOverSprite.style.top = windowH / 2 - 94;
 gameOverSprite.style.left = windowW / 2 - 400;
 gameOverSprite.style.display = "none";
@@ -26,7 +27,7 @@ onkeydown = onkeyup = function(e){
 }
 
 function playerUpdate() {
-	if (keymap[82]) {
+	if (keymap[82] || (mouseClicking && player["dead"])) {
 		// Reset
 		player["x"] = levelXoffset * 32 + 32;
 		player["y"] = levelYoffset * 32 + 320;
@@ -36,6 +37,12 @@ function playerUpdate() {
 			musicElem.play();
 			gmMusicElem.pause();
 		}
+		for (part = 0; part < particles.length; part++) {
+			try {
+				particles[part]['elem'].remove();
+			} catch (e) { }
+		}
+		particles = [];
 	}
 	if (!player["dead"]) {
 		player["dx"] = 0;
@@ -103,28 +110,28 @@ function playerUpdate() {
 					try { gmMusicElem.currentTime = 0; } catch (e) {}
 					musicElem.pause();
 					gmMusicElem.play();
-					for (part = 0; part < particles.length; part++) {
-						try {
-							particles[part]['elem'].remove();
-						} catch (e) { }
-					}
-					particles = [];
-					var partAmount = 30;
-					for (iangle = 0; iangle < partAmount; iangle++) {
-						// Particle explosion
-						var angle = iangle * (360 / partAmount);
-						var currentParticle = document.createElement("span");
-						currentParticle.style.backgroundColor = 'red';
-						currentParticle.style.width = "2px";
-						currentParticle.style.height = "2px";
-						var partSin = Math.sin(Math.PI * 2 * angle / 360);
-						var partCos = Math.cos(Math.PI * 2 * angle / 360);
-						var partx = player["x"] + (player["w"] / 2) + (player["w"] / 2) * partSin;
-						var party = player["y"] + (player["h"] / 2) + (player["w"] / 2) * partCos;
-						currentParticle.style.top = party;
-						currentParticle.style.left = partx;
-						particles[particles.length] = {'elem': currentParticle, 'x': partx, 'y': party, 'xdir': partSin, 'ydir': partCos, 'dy': -12};
-						document.body.appendChild(currentParticle);
+					var partAmount = 12;
+					var circles = 10;
+					var radius = player["w"] / 2;
+					for (icircle = 0; icircle < circles; icircle++) {
+						for (iangle = 0; iangle < partAmount; iangle++) {
+							// Particle explosion
+							var angle = iangle * (360 / partAmount);
+							var currentParticle = document.createElement("span");
+							currentParticle.style.backgroundColor = 'red';
+							currentParticle.style.width = "2px";
+							currentParticle.style.height = "2px";
+							var partSin = Math.sin(Math.PI * 2 * angle / 360);
+							var partCos = Math.cos(Math.PI * 2 * angle / 360);
+							var partx = player["x"] + (player["w"] / 2) + radius * partSin;
+							var party = player["y"] + (player["h"] / 2) + radius * partCos;
+							currentParticle.style.top = party;
+							currentParticle.style.left = partx;
+							particles[particles.length] = {'elem': currentParticle, 'x': partx, 'y': party, 'xdir': partSin,
+							                               'dy': -0.5 * (radius * partCos), 'timesBounced': 0, 'stopMovingH': false};
+							document.body.appendChild(currentParticle);
+						}
+						radius += 4;
 					}
 					break;
 				}
@@ -156,6 +163,29 @@ function playerUpdate() {
 				if (obj["img"] != "assets/sprSpike.png") {
 					player['bullets'][i]['elem'].remove();
 					player['bullets'].splice(i, 1);
+				}
+			}
+		}
+		
+		for (i = 0; i < particles.length; i++) {
+			// Particle collision
+			if (obj['img'] != 'assets/sprSpike.png') {
+				if (overlap(particles[i]['x'], particles[i]['y'] + 2, 2, 0, obj['x'], obj['y'], obj['w'], obj['h'])) {
+					if (particles[i]['timesBounced'] < 5) {
+						particles[i]['timesBounced']++;
+						particles[i]['xdir'] = Math.random() * 2 - 1;
+						particles[i]['dy'] = -5 / particles[i]['timesBounced'];
+					} else {
+						particles[i]['stopMovingV'] = true;
+					}
+				}
+				if (!particles[i]['stopMovingH']) {
+					if (overlap(particles[i]['x'] + 2, particles[i]['y'], 0, 2, obj['x'], obj['y'], obj['w'], obj['h'])) {
+						particles[i]['stopMovingH'] = true;
+					}
+					if (overlap(particles[i]['x'], particles[i]['y'], 0, 2, obj['x'] + obj['w'], obj['y'], obj['w'], obj['h'])) {
+						particles[i]['stopMovingH'] = true;
+					}
 				}
 			}
 		}
@@ -217,11 +247,12 @@ function drawPlayerSprite() {
 		gameOverSprite.style.display = 'none';
 	}
 	
-	// Also manage particles
+	// Move particles
 	for (i = 0; i < particles.length; i++) {
-		particles[i]['x'] += particles[i]['xdir'] * (Math.random() * 9);
-		if (particles[i]['dy'] < termVel) particles[i]['dy'] += gravity;
-		particles[i]['y'] += particles[i]['ydir'] * (Math.random() * 9) + particles[i]['dy'];
+		if (!particles[i]['stopMovingH']) particles[i]['x'] += (particles[i]['xdir'] + ((Math.random() * 2) - 1) / 10) * (Math.random() * 9);
+		if (!particles[i]['stopMovingV'] && particles[i]['dy'] < termVel) particles[i]['dy'] += gravity / 2;
+		if (particles[i]['stopMovingV']) particles[i]['dy'] = 0;
+		particles[i]['y'] += particles[i]['dy'];
 		particles[i]['elem'].style.top = particles[i]['y'];
 		particles[i]['elem'].style.left = particles[i]['x'];
 		
@@ -235,10 +266,10 @@ function drawPlayerSprite() {
 }
 
 function overlap(x1, y1, w1, h1, x2, y2, w2, h2) {
-	return !(((x1 + w1 - 1) <= x2) ||
-	         ((x2 + w2 - 1) <= x1) ||
-	         ((y1 + h1 - 1) <= y2) ||
-	         ((y2 + h2 - 1) <= y1));
+	return (x1 < x2 + w2 &&
+		    x1 + w1 > x2 &&
+		    y1 < y2 + h2 &&
+		    y1 + h1 > y2);
 }
 
 setInterval(playerUpdate, 1000/30);
