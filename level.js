@@ -185,5 +185,5 @@ function padLeadingZeros(num, size) {
     return s;
 }
 
-setInterval(levelUpdate, 1000/30);
-setInterval(animUpdate, 1000/10);
+levLoop = setInterval(levelUpdate, 1000/30);
+animLoop = setInterval(animUpdate, 1000/10);

@@ -102,58 +102,60 @@ function playerUpdate() {
 	for (obji = 0; obji < objects.length; obji++) {
 		var obj = objects[obji];
 		if (!player["dead"]) {
-			var futurex = player["x"] + player["dx"];
-			var futurey = player["y"] + player["dy"];
-			if (overlap(futurex, futurey, player["w"], player["h"], obj["x"], obj["y"], obj["w"], obj["h"])) {
-				if (obj["dangerous"]) {
-					player["dead"] = true;
-					try { gmMusicElem.currentTime = 0; } catch (e) {}
-					musicElem.pause();
-					gmMusicElem.play();
-					var partAmount = 12;
-					var circles = 10;
-					var radius = player["w"] / 2;
-					for (icircle = 0; icircle < circles; icircle++) {
-						for (iangle = 0; iangle < partAmount; iangle++) {
-							// Particle explosion
-							var angle = iangle * (360 / partAmount);
-							var currentParticle = document.createElement("span");
-							currentParticle.style.backgroundColor = 'red';
-							currentParticle.style.width = "2px";
-							currentParticle.style.height = "2px";
-							var partSin = Math.sin(Math.PI * 2 * angle / 360);
-							var partCos = Math.cos(Math.PI * 2 * angle / 360);
-							var partx = player["x"] + (player["w"] / 2) + radius * partSin;
-							var party = player["y"] + (player["h"] / 2) + radius * partCos;
-							currentParticle.style.top = party;
-							currentParticle.style.left = partx;
-							particles[particles.length] = {'elem': currentParticle, 'x': partx, 'y': party, 'xdir': partSin,
-							                               'dy': -0.5 * (radius * partCos), 'timesBounced': 0, 'stopMovingH': false};
-							document.body.appendChild(currentParticle);
-						}
-						radius += 4;
+			if (obj["dangerous"] && overlap(player["x"] + player["dx"], player["y"] + player["dy"], player["w"], player["h"], obj["x"], obj["y"], obj["w"], obj["h"])) {
+				player["dead"] = true;
+				try { gmMusicElem.currentTime = 0; } catch (e) {}
+				musicElem.pause();
+				gmMusicElem.play();
+				var partAmount = 12;
+				var circles = 10;
+				var radius = player["w"] / 2;
+				for (icircle = 0; icircle < circles; icircle++) {
+					for (iangle = 0; iangle < partAmount; iangle++) {
+						// Particle explosion
+						var angle = iangle * (360 / partAmount);
+						var currentParticle = document.createElement("span");
+						currentParticle.style.backgroundColor = 'red';
+						currentParticle.style.width = "2px";
+						currentParticle.style.height = "2px";
+						var partSin = Math.sin(Math.PI * 2 * angle / 360);
+						var partCos = Math.cos(Math.PI * 2 * angle / 360);
+						var partx = player["x"] + (player["w"] / 2) + radius * partSin;
+						var party = player["y"] + (player["h"] / 2) + radius * partCos;
+						currentParticle.style.top = party;
+						currentParticle.style.left = partx;
+						particles[particles.length] = {'elem': currentParticle, 'x': partx, 'y': party, 'xdir': partSin,
+						                               'dy': -0.5 * (radius * partCos), 'timesBounced': 0, 'stopMovingH': false};
+						document.body.appendChild(currentParticle);
 					}
-					break;
+					radius += 4;
 				}
-				
-				if ((futurex + player["w"] >= obj["x"] && futurex + player["w"] <= obj["x"] + player["dx"] * 1.5) ||
-					(futurex <= obj["x"] + obj["w"] && futurex >= obj["x"] - player["dx"] * 1.5)) {
-					if (obj["y"] < player["y"] + player["h"] && obj["y"] + obj["h"] > player["y"]) {
-						player["dx"] = 0;
-					}
-				}
-				
-				if (futurey + player["h"] >= obj["y"] && futurey + player["h"] <= obj["y"] + player["dy"] * 1.5 &&
-					obj["x"] + obj["w"] > player["x"] && obj["x"] < player["x"] + player["w"]) {
-					player["dy"] = 0;
-					player["y"] = obj["y"] - player["h"];
-					player["grounded"] = true;
-					player["jump"] = 0;
-				}
-				if (futurey <= obj["y"] + obj["h"] && futurey >= obj["y"] - player["dy"] * 1.5 &&
-					obj["x"] + obj["w"] > player["x"] && obj["x"] < player["x"] + player["w"]) {
-					player["dy"] = 0;
-				}
+				break;
+			}
+
+			if (overlap(player["x"], player["y"] + player["dy"] + player["h"], player["w"], 0, obj["x"], obj["y"], obj["w"], player["dy"] * 1.5) &&
+			    player["x"] + player["w"] > obj["x"] && player["x"] < obj["x"] + obj["w"]) {
+				player["dy"] = 0;
+				player["y"] = obj["y"] - player["h"];
+				player["grounded"] = true;
+				player["jump"] = 0;
+			}
+			
+			if (overlap(player["x"], player["y"] + player["dy"], player["w"], 0, obj["x"], obj["y"] + obj["h"] - (-player["dy"] * 1.5), obj["w"], -player["dy"] * 1.5) &&
+			    player["x"] + player["w"] > obj["x"] && player["x"] < obj["x"] + obj["w"]) {
+				player["dy"] = 0;
+				player["y"] = obj["y"] + obj["h"];
+			}
+			
+			if (overlap(player["x"] + player["dx"] + player["w"], player["y"], 0, player["h"], obj["x"], obj["y"], player["dx"] * 1.5, obj["h"]) &&
+			    player["y"] + player["h"] > obj["y"] && player["y"] < obj["y"] + obj["h"]) {
+				player["dx"] = 0;
+				player["x"] = obj["x"] - player["w"];
+			}
+			if (overlap(player["x"] + player["dx"], player["y"], 0, player["h"], obj["x"] + obj["w"] - (-player["dx"] * 1.5), obj["y"], -player["dx"] * 1.5, obj["h"]) &&
+			    player["y"] + player["h"] > obj["y"] && player["y"] < obj["y"] + obj["h"]) {
+				player["dx"] = 0;
+				player["x"] = obj["x"] + obj["w"];
 			}
 		}
 		
@@ -190,12 +192,11 @@ function playerUpdate() {
 			}
 		}
 	}
-		
+	
 	if (!player["grounded"] && player["jump"] == 0) player["jump"] = 1;
-		
 	if (!player["dead"]) {
-		player["x"] += player["dx"];
 		player["y"] += player["dy"];
+		player["x"] += player["dx"];
 	}
 	
 	drawPlayerSprite();
@@ -266,10 +267,10 @@ function drawPlayerSprite() {
 }
 
 function overlap(x1, y1, w1, h1, x2, y2, w2, h2) {
-	return (x1 < x2 + w2 &&
-		    x1 + w1 > x2 &&
-		    y1 < y2 + h2 &&
-		    y1 + h1 > y2);
+	return (x1 <= x2 + w2 &&
+		    x1 + w1 >= x2 &&
+		    y1 <= y2 + h2 &&
+		    y1 + h1 >= y2);
 }
 
-setInterval(playerUpdate, 1000/30);
+plLoop = setInterval(playerUpdate, 1000/30);
