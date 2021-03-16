@@ -83,7 +83,7 @@ var levelXoffset = Math.round((windowW / 32 - 26) / 2);
 
 // Background
 bg = document.createElement("img");
-bg.src = "assets/bg.jpg";
+bg.src = "assets/graveyard/bg.jpg";
 bg.style.top = levelYoffset * 32;
 bg.style.left = levelXoffset * 32;
 bg.style.width = 26 * 32;
@@ -95,10 +95,10 @@ for (i = 0; i < terrain.length; i++) {
 		// Decorations like trees (broccoli), fences and the moon
 		Xoffset = 0, Yoffset = 0;
 		if (terrain[i] == 8) {
-			sprite = "assets/sprMoon.png";
+			sprite = "assets/graveyard/sprMoon.png";
 		}
 		if (terrain[i] == 7) {
-			sprite = "assets/sprFence.png";
+			sprite = "assets/graveyard/sprFence.png";
 			Yoffset = 32;
 		}
 		if (terrain[i] == 6) {
