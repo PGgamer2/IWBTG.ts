@@ -39,29 +39,6 @@ function animUpdate() {
 	}
 }
 
-var terrain = [
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,
-	1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1,1,
-	1,0,0,0,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,0,0,1,1,
-	1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,8,0,0,2,1,1,
-	1,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,1,1,
-	1,0,0,0,0,0,0,0,0,0,0,0,4,1,1,4,0,0,0,0,0,0,0,0,1,1,
-	1,0,0,0,0,0,0,3,0,0,0,0,0,0,4,0,0,0,0,0,0,2,2,2,1,1,
-	1,6,0,0,0,0,3,2,2,3,0,0,0,0,0,6,0,0,0,0,0,0,1,1,1,1,
-	1,0,0,0,0,0,2,1,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,
-	1,0,0,0,0,0,4,4,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,5,1,1,
-	1,7,7,0,0,0,0,0,0,0,0,0,1,2,0,0,0,7,7,0,0,0,0,5,1,1,
-	1,0,0,0,0,0,0,0,3,3,3,3,1,1,3,0,0,3,0,3,0,0,0,5,1,1,
-	1,2,2,0,0,0,3,3,2,2,2,2,1,1,2,2,2,2,2,2,0,0,0,5,1,1,
-	1,1,1,0,0,0,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,0,0,2,1,1,
-	1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,
-	1,1,1,2,0,7,7,7,7,0,0,0,0,7,0,7,0,0,0,7,7,0,2,1,1,1,
-	1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
-	1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-]
-
 var windowW = window.innerWidth
 || document.documentElement.clientWidth
 || document.body.clientWidth;
@@ -70,16 +47,18 @@ var windowH = window.innerHeight
 || document.documentElement.clientHeight
 || document.body.clientHeight;
 
-var levelYoffset = Math.round((windowH / 32 - 20) / 2);
-var levelXoffset = Math.round((windowW / 32 - 26) / 2);
+var levelW = document.body.getAttribute("data-iwbtg-levelw");
+var levelH = document.body.getAttribute("data-iwbtg-levelh");
+var levelYoffset = Math.round((windowH / 32 - levelH) / 2);
+var levelXoffset = Math.round((windowW / 32 - levelW) / 2);
 
 // Background
 bg = document.createElement("img");
-bg.src = levelPath + "assets/graveyard/bg.jpg";
+bg.src = document.body.getAttribute("data-iwbtg-bg");
 bg.style.top = levelYoffset * 32;
 bg.style.left = levelXoffset * 32;
-bg.style.width = 26 * 32;
-bg.style.height = 20 * 32;
+bg.style.width = levelW * 32;
+bg.style.height = levelH * 32;
 document.body.appendChild(bg);
 
 for (i = 0; i < terrain.length; i++) {
@@ -97,10 +76,10 @@ for (i = 0; i < terrain.length; i++) {
 			sprite = levelPath + "assets/sprBroccoli.png";
 			Xoffset = -25;
 		}
-		addObject("ter" + i, levelXoffset * 32 + 32 * (i - 26 * Math.trunc(i / 26)) + Xoffset, levelYoffset * 32 + 32 * Math.trunc(i / 26) + Yoffset, sprite, false, false, false);
+		addObject("ter" + i, levelXoffset * 32 + 32 * (i - levelW * Math.trunc(i / levelW)) + Xoffset, levelYoffset * 32 + 32 * Math.trunc(i / levelW) + Yoffset, sprite, false, false, false);
 	}
 }
-	
+
 for (i = 0; i < terrain.length; i++) {
 	// Terrain and spikes
 	sprite = levelPath + "assets/sprBlock.png";
@@ -142,7 +121,7 @@ for (i = 0; i < terrain.length; i++) {
 		xSpriteOffset = -2;
 		ySpriteOffset = -2;
 	}
-	if (terrain[i] != 0 && terrain[i] < 6) addObject("ter" + i, levelXoffset * 32 + 32 * (i - 26 * Math.trunc(i / 26)) + xOffset, levelYoffset * 32 + 32 * Math.trunc(i / 26) + yOffset, sprite, flipV, rotateMinus90, true, dangerous, fw, fh, xSpriteOffset, ySpriteOffset);
+	if (terrain[i] != 0 && terrain[i] < 6) addObject("ter" + i, levelXoffset * 32 + 32 * (i - levelW * Math.trunc(i / levelW)) + xOffset, levelYoffset * 32 + 32 * Math.trunc(i / levelW) + yOffset, sprite, flipV, rotateMinus90, true, dangerous, fw, fh, xSpriteOffset, ySpriteOffset);
 }
 
 function addObject(fid, fx, fy, fimg, flipV, rotateMinus90, collidable, dangerous, fw, fh, spriteXoffset, spriteYoffset) {
