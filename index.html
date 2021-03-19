@@ -1,25 +1,46 @@
 <html lang="en">
 	<head>
-		<title>IWBTG.js</title>
+		<title>Home - IWBTG.js</title>
 		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+		<style>
+			html, body {
+				background-image: url("");
+				background-color: #C4D7F7;
+			}
+			.fileSelectionBox {
+				background-color: black;
+				width: 192px;
+				height: 210px;
+				top: 25vh;
+				cursor: pointer;
+			}
+			.fileSelectionBox * {
+				margin-left: 19px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				position: static;
+			}
+			.savetitle {
+				margin-top: 4px;
+				margin-bottom: 4px;
+				font-size: 25px;
+			}
+			#saveFileThumbnail1, #saveFileThumbnail2, #saveFileThumbnail3 {
+				margin-left: 0;
+				width: 192px;
+				height: auto;
+			}
+		</style>
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 	<body>
-		<audio id="music" preload="auto" autoplay>
-		  <source src="sounds/ghoulsandgoblins.ogg" type="audio/ogg">
-		  <source src="sounds/mp3/ghoulsandgoblins.mp3" type="audio/mpeg">
+		<audio id="music" preload="auto" loop autoplay>
+		  <source src="sounds/saveselect.ogg" type="audio/ogg">
+		  <source src="sounds/mp3/saveselect.mp3" type="audio/mpeg">
 		</audio>
-		<audio id="gameoverMusic" preload="auto">
-		  <source src="sounds/gameover.ogg" type="audio/ogg">
-		  <source src="sounds/mp3/gameover.mp3" type="audio/mpeg">
-		</audio>
-		<script src="level.js"></script>
-		<script src="player.js"></script>
-		<script>
-			document.body.onload = function() {
-				document.getElementById("loading").style.display = "none";
-			}
-		</script>
+		<script src="polyfill.js"></script>
+		<script src="homeScreen.js"></script>
 	</body>
 	<div id="loading"></div>
 </html>

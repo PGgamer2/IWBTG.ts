@@ -1,26 +1,18 @@
+document.body.onload = function() {
+	document.getElementById("loading").style.display = "none";
+}
+
+var levelPath = "../";
+
 var objects = [];
 var animations = [
-	{'currentSprite': 0, 'spriteDir': ['assets/player/sprPlayerFall'], 'totalSprites': 2},
-	{'currentSprite': 0, 'spriteDir': ['assets/player/sprPlayerIdle'], 'totalSprites': 4},
-	{'currentSprite': 0, 'spriteDir': ['assets/player/sprPlayerRunning'], 'totalSprites': 4},
-	{'currentSprite': 0, 'spriteDir': ['assets/player/sprPlayerJump'], 'totalSprites': 2},
-	{'currentSprite': 0, 'spriteDir': ['assets/player/sprBullet'], 'totalSprites': 2}
+	{'currentSprite': 0, 'spriteDir': [levelPath + 'assets/player/sprPlayerFall'], 'totalSprites': 2},
+	{'currentSprite': 0, 'spriteDir': [levelPath + 'assets/player/sprPlayerIdle'], 'totalSprites': 4},
+	{'currentSprite': 0, 'spriteDir': [levelPath + 'assets/player/sprPlayerRunning'], 'totalSprites': 4},
+	{'currentSprite': 0, 'spriteDir': [levelPath + 'assets/player/sprPlayerJump'], 'totalSprites': 2},
+	{'currentSprite': 0, 'spriteDir': [levelPath + 'assets/player/sprBullet'], 'totalSprites': 2}
 ];
 var particles = [];
-
-if (!Math.trunc) {
-	Math.trunc = function (v) {
-		return v < 0 ? Math.ceil(v) : Math.floor(v);
-	};
-}
-
-if (!('remove' in Element.prototype)) {
-    Element.prototype.remove = function() {
-        if (this.parentNode) {
-            this.parentNode.removeChild(this);
-        }
-    };
-}
 
 var musicElem = document.getElementById("music");
 var gmMusicElem = document.getElementById('gameoverMusic');
@@ -33,8 +25,8 @@ function playMusic() {
 }
 
 function levelUpdate() {
-	if (!player["dead"] && musicElem.currentTime >= 98.7) {
-		musicElem.currentTime = 32.520;
+	if (!player["dead"] && musicElem.currentTime >= musicElem.getAttribute("data-loop-finish")) {
+		musicElem.currentTime = parseInt(musicElem.getAttribute("data-loop-start"));
 	}
 }
 
@@ -47,7 +39,7 @@ function animUpdate() {
 	}
 }
 
-const terrain = [
+var terrain = [
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,
 	1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1,1,
@@ -83,7 +75,7 @@ var levelXoffset = Math.round((windowW / 32 - 26) / 2);
 
 // Background
 bg = document.createElement("img");
-bg.src = "assets/graveyard/bg.jpg";
+bg.src = levelPath + "assets/graveyard/bg.jpg";
 bg.style.top = levelYoffset * 32;
 bg.style.left = levelXoffset * 32;
 bg.style.width = 26 * 32;
@@ -95,14 +87,14 @@ for (i = 0; i < terrain.length; i++) {
 		// Decorations like trees (broccoli), fences and the moon
 		Xoffset = 0, Yoffset = 0;
 		if (terrain[i] == 8) {
-			sprite = "assets/graveyard/sprMoon.png";
+			sprite = levelPath + "assets/graveyard/sprMoon.png";
 		}
 		if (terrain[i] == 7) {
-			sprite = "assets/graveyard/sprFence.png";
+			sprite = levelPath + "assets/graveyard/sprFence.png";
 			Yoffset = 32;
 		}
 		if (terrain[i] == 6) {
-			sprite = "assets/sprBroccoli.png";
+			sprite = levelPath + "assets/sprBroccoli.png";
 			Xoffset = -25;
 		}
 		addObject("ter" + i, levelXoffset * 32 + 32 * (i - 26 * Math.trunc(i / 26)) + Xoffset, levelYoffset * 32 + 32 * Math.trunc(i / 26) + Yoffset, sprite, false, false, false);
@@ -111,7 +103,7 @@ for (i = 0; i < terrain.length; i++) {
 	
 for (i = 0; i < terrain.length; i++) {
 	// Terrain and spikes
-	sprite = "assets/sprBlock.png";
+	sprite = levelPath + "assets/sprBlock.png";
 	flipV = false;
 	rotateMinus90 = false;
 	dangerous = false;
@@ -121,9 +113,9 @@ for (i = 0; i < terrain.length; i++) {
 	yOffset = 0;
 	xSpriteOffset = 0;
 	ySpriteOffset = 0;
-	if (terrain[i] == 2) sprite = "assets/sprGrass.png";
+	if (terrain[i] == 2) sprite = levelPath + "assets/sprGrass.png";
 	if (terrain[i] == 3 || terrain[i] == 4 || terrain[i] == 5) {
-		sprite = "assets/sprSpike.png";
+		sprite = levelPath + "assets/sprSpike.png";
 		dangerous = true;
 		fw = 28;
 		fh = 30;
@@ -167,8 +159,8 @@ function addObject(fid, fx, fy, fimg, flipV, rotateMinus90, collidable, dangerou
 	elem.src = fimg;
 	elem.style.top = fy + spriteYoffset;
 	elem.style.left = fx + spriteXoffset;
-	if (flipV) elem.classList.add("flipV");
-	if (rotateMinus90) elem.classList.add("rotateMinusNineteen");
+	if (flipV) addClass(elem, "flipV");
+	if (rotateMinus90) addClass(elem, "rotateMinusNineteen");
 	document.body.appendChild(elem);
 	if (collidable) objects[objects.length] = { 'id': fid, 'x': fx, 'y': fy, 'w': fw, 'h': fh, 'dangerous': dangerous,
 	                'img': fimg, 'spriteXoffset': spriteXoffset, 'spriteYoffset': spriteYoffset, 'flipV': flipV, 'rotateMinus90': rotateMinus90};
@@ -186,4 +178,4 @@ function padLeadingZeros(num, size) {
 }
 
 levLoop = setInterval(levelUpdate, 1000/30);
-animLoop = setInterval(animUpdate, 1000/10);
+animLoop = setInterval(animUpdate, 1000/15);

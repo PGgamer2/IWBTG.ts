@@ -11,8 +11,8 @@ plElem.style.left = player['x'];
 document.body.appendChild(plElem); // Add player
 
 var gameOverSprite = document.createElement("img");
-gameOverSprite.src = "assets/sprGameOver.png"; // Game over sprite
-gameOverSprite.style.zIndex = "3";
+gameOverSprite.src = levelPath + "assets/ui/sprGameOver.png"; // Game over sprite
+gameOverSprite.style.zIndex = "50";
 gameOverSprite.style.top = windowH / 2 - 94;
 gameOverSprite.style.left = windowW / 2 - 400;
 gameOverSprite.style.display = "none";
@@ -162,7 +162,7 @@ function playerUpdate() {
 		for (i = 0; i < player['bullets'].length; i++) {
 			// Bullet collision
 			if (overlap(player['bullets'][i]['x'], player['bullets'][i]['y'], 4, 4, obj["x"], obj["y"], obj["w"], obj["h"])) {
-				if (obj["img"] != "assets/sprSpike.png") {
+				if (!obj['img'].contains('sprSpike.png')) {
 					player['bullets'][i]['elem'].remove();
 					player['bullets'].splice(i, 1);
 				}
@@ -171,7 +171,7 @@ function playerUpdate() {
 		
 		for (i = 0; i < particles.length; i++) {
 			// Particle collision
-			if (obj['img'] != 'assets/sprSpike.png') {
+			if (!obj['img'].contains('sprSpike.png')) {
 				if (overlap(particles[i]['x'], particles[i]['y'] + 2, 2, 0, obj['x'], obj['y'], obj['w'], obj['h'])) {
 					if (particles[i]['timesBounced'] < 5) {
 						particles[i]['timesBounced']++;
@@ -241,8 +241,8 @@ function drawPlayerSprite() {
 		if (player["dx"] == 0 && player["grounded"]) sprType = 1;
 		if (player["dy"] < 0 && !player["grounded"]) sprType = 3;
 		
-		if (player["spriteH"] == -1) plElem.classList.add("flipH");
-		else plElem.classList.remove("flipH");
+		if (player["spriteH"] == -1) addClass(plElem, "flipH");
+		else removeClass(plElem, "flipH");
 		
 		plElem.src = getSpritePath(sprType);
 		gameOverSprite.style.display = 'none';

@@ -1,4 +1,14 @@
+@font-face {
+	font-family: 'ComicSansMS';
+	src: url('assets/fonts/comicsans.eot?#iefix') format('embedded-opentype'),
+		 url('assets/fonts/comicsans.ttf')  format('truetype');
+}
 * {
+	font-family: 'ComicSansMS';
+	font-weight: bold;
+	font-size: 13px;
+	margin: 0;
+	color: white;
 	position: fixed;
 	-ms-interpolation-mode: nearest-neighbor;
 	image-rendering: -webkit-optimize-contrast;
@@ -19,7 +29,7 @@
 	display: block;
 	opacity: 0.7;
 	background-color: #fff;
-	background-image: url('assets/loading.png');
+	background-image: url('assets/ui/loading.png');
 	background-position: center;
 	background-repeat: no-repeat;
 }
