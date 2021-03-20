@@ -43,13 +43,13 @@ var plFinalLocation = 96;
 var plLocNumber = 1;
 var plDir = 1;
 
+var cloudCurrentSprite = 0;
 for (i = 0; i < Math.trunc(windowW / 64) + 1; i++) {
-	if (Math.random() > 0.45) addObject("tr" + i, i * 64, windowH - 225, "assets/sprBroccoli.png");
+	if (Math.random() > 0.45) addObject("tr" + i, i * 64, windowH - 238, "assets/sprBroccoli.png");
+	if (Math.random() > 0.7) addObject("tc" + i, i * 64, Math.floor(Math.random() * (windowH - 300)) + 1, "assets/guy/sprKumoPlatform/tile000.png");
 }
 for (i = 0; i < Math.trunc(windowW / 32) + 2; i++) {
 	addObject("tt" + i, i * 32, windowH - 32, "assets/sprBlock.png");
-}
-for (i = 0; i < Math.trunc(windowW / 32) + 2; i++) {
 	addObject("tg" + i, i * 32, windowH - 64, "assets/sprGrass.png");
 }
 
@@ -81,7 +81,7 @@ for (i = 1; i <= 3; i++) {
 	selBox.appendChild(boxImage);
 	selBox.setAttribute("data-selbox-number", i);
 	selBox.onclick = function() {
-		var selBoxNumber = this.getAttribute("data-selbox-number");
+		var selBoxNumber = parseInt(this.getAttribute("data-selbox-number"));
 		if (selBoxNumber != plLocNumber) {
 			plDir = plLocNumber < selBoxNumber ? 1 : -1;
 			plLocNumber = selBoxNumber;
@@ -132,13 +132,30 @@ setInterval(function() {
 	plCurrentSprite++;
 	if (plCurrentSprite > 3) plCurrentSprite = 0;
 	plCenter.src = "assets/player/sprPlayerRunning/tile00" + plCurrentSprite + ".png";
-}, 1000/15);
+}, 1000/10);
+
+setInterval(function() {
+	cloudCurrentSprite++;
+	if (cloudCurrentSprite > 1) cloudCurrentSprite = 0;
+	for (i = 0; i < objects.length; i++) {
+		if (objects[i]["element"].id.contains("tc")) {
+			objects[i]["element"].src = "assets/guy/sprKumoPlatform/tile00" + cloudCurrentSprite + ".png";
+		}
+	}
+}, 1000/5);
 
 setInterval(function() {
 	for (i = 0; i < objects.length; i++) {
 		objects[i]["element"].style.left = parseInt(objects[i]["element"].style.left) - 2;
 		if (objects[i]["element"].src.contains("sprBroccoli.png")) {
 			if (parseInt(objects[i]["element"].style.left) <= -111) objects[i]["element"].style.left = windowW + (Math.random() * 2 + 1) * 64;
+			continue;
+		}
+		if (objects[i]["element"].src.contains("sprKumoPlatform")) {
+			if (parseInt(objects[i]["element"].style.left) <= -112) {
+				objects[i]["element"].style.left = windowW + (Math.random() * 2 + 1) * 64;
+				objects[i]["element"].style.top = Math.floor(Math.random() * (windowH - 300)) + 1;
+			}
 			continue;
 		}
 		if (parseInt(objects[i]["element"].style.left) <= -32) objects[i]["element"].style.left = 32 * (Math.trunc(windowW / 32) + 2) - 32;
