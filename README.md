@@ -8,17 +8,18 @@ It is incomplete. At the moment there's only:
 - Spikes. Ouch...
 
 # Project Structure
-├───assets: images, fonts, sprites, etc.
-├───levels: all of the available levels.
-├───sounds: all of the sounds and music.
-│   └───mp3: an MP3 version of the audio for browser support.
-├───404.html: 404 page. It instantly redirects the user to index.html
-├───homeScreen.js: index.html .JS file.
-├───index.html: save file selection screen.
-├───level.js: main .JS file for level managing.
-├───player.js: main .JS file to control the player.
-├───polyfill.js: polyfills for old browsers support.
-└───style.css: main .CSS file. It is important because it mainly changes elements' position property to 'fixed'.
+	IWBTG.js
+	├───assets: images, fonts, sprites, etc.
+	├───levels: all of the available levels.
+	├───sounds: all of the sounds and music.
+	│   └───mp3: an MP3 version of the audio for browser support.
+	├───404.html: 404 page. It instantly redirects the user to index.html
+	├───homeScreen.js: index.html .JS file.
+	├───index.html: save file selection screen.
+	├───level.js: main .JS file for level managing.
+	├───player.js: main .JS file to control the player.
+	├───polyfill.js: polyfills for old browsers support.
+	└───style.css: main .CSS file. It is important because it mainly changes elements' position property to 'fixed'.
 
 # FAQ
 
