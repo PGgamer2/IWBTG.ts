@@ -3,6 +3,7 @@ document.body.onload = function() {
 }
 
 var musicElem = document.getElementById("music");
+musicElem.loop = true;
 document.body.onclick = document.body.onkeypress = function() {
 	if (musicElem.paused) {
 		musicElem.play();

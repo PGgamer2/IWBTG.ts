@@ -25,8 +25,10 @@ function playMusic() {
 }
 
 function levelUpdate() {
-	if (!player["dead"] && musicElem.currentTime >= musicElem.getAttribute("data-loop-finish")) {
-		musicElem.currentTime = parseInt(musicElem.getAttribute("data-loop-start"));
+	if (musicElem.getAttribute("data-loop-finish")) {
+		if (!player["dead"] && musicElem.currentTime >= parseInt(musicElem.getAttribute("data-loop-finish"))) {
+			musicElem.currentTime = parseInt(musicElem.getAttribute("data-loop-start"));
+		}
 	}
 }
 
