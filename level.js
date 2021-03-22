@@ -47,8 +47,8 @@ var windowH = window.innerHeight
 || document.documentElement.clientHeight
 || document.body.clientHeight;
 
-var levelW = document.body.getAttribute("data-iwbtg-levelw");
-var levelH = document.body.getAttribute("data-iwbtg-levelh");
+var levelW = document.body.getAttribute("data-iwbtg-levelw") || 25;
+var levelH = document.body.getAttribute("data-iwbtg-levelh") || 19;
 var levelYoffset = Math.round((windowH / 32 - levelH) / 2);
 var levelXoffset = Math.round((windowW / 32 - levelW) / 2);
 
@@ -62,38 +62,50 @@ bg.style.height = levelH * 32;
 document.body.appendChild(bg);
 
 for (i = 0; i < terrain.length; i++) {
-	if (terrain[i] > 5) {
-		// Decorations like trees (broccoli), fences and the moon
-		Xoffset = 0, Yoffset = 0;
-		if (terrain[i] == 8) {
+	// Decorations like trees (broccoli), fences and the moon
+	var Xoffset = 0, Yoffset = 0;
+	var isDeco = false;
+	switch (terrain[i]) {
+		case 8:
 			sprite = levelPath + "assets/graveyard/sprMoon.png";
-		}
-		if (terrain[i] == 7) {
+			isDeco = true;
+			break;
+		case 7:
 			sprite = levelPath + "assets/graveyard/sprFence.png";
 			Yoffset = 32;
-		}
-		if (terrain[i] == 6) {
+			isDeco = true;
+			break;
+		case 6:
 			sprite = levelPath + "assets/sprBroccoli.png";
 			Xoffset = -25;
-		}
-		addObject("ter" + i, levelXoffset * 32 + 32 * (i - levelW * Math.trunc(i / levelW)) + Xoffset, levelYoffset * 32 + 32 * Math.trunc(i / levelW) + Yoffset, sprite, false, false, false);
+			isDeco = true;
+			break;
 	}
+	if (isDeco) addObject("ter" + i, levelXoffset * 32 + 32 * (i - levelW * Math.trunc(i / levelW)) + Xoffset, levelYoffset * 32 + 32 * Math.trunc(i / levelW) + Yoffset, sprite, false, false, false);
 }
 
 for (i = 0; i < terrain.length; i++) {
 	// Terrain and spikes
-	sprite = levelPath + "assets/sprBlock.png";
-	flipV = false;
-	rotateMinus90 = false;
-	dangerous = false;
-	fw = 32;
-	fh = 32;
-	xOffset = 0;
-	yOffset = 0;
-	xSpriteOffset = 0;
-	ySpriteOffset = 0;
-	if (terrain[i] == 2) sprite = levelPath + "assets/sprGrass.png";
+	var isCollidable = false;
+	var flipV = false;
+	var rotateMinus90 = false;
+	var dangerous = false;
+	var fw = 32;
+	var fh = 32;
+	var xOffset = 0;
+	var yOffset = 0;
+	var xSpriteOffset = 0;
+	var ySpriteOffset = 0;
+	if (terrain[i] == 1) {
+		isCollidable = true;
+		sprite = levelPath + "assets/sprBlock.png";
+	}
+	if (terrain[i] == 2) {
+		isCollidable = true;
+		sprite = levelPath + "assets/sprGrass.png";
+	}
 	if (terrain[i] == 3 || terrain[i] == 4 || terrain[i] == 5) {
+		isCollidable = true;
 		sprite = levelPath + "assets/sprSpike.png";
 		dangerous = true;
 		fw = 28;
@@ -121,7 +133,11 @@ for (i = 0; i < terrain.length; i++) {
 		xSpriteOffset = -2;
 		ySpriteOffset = -2;
 	}
-	if (terrain[i] != 0 && terrain[i] < 6) addObject("ter" + i, levelXoffset * 32 + 32 * (i - levelW * Math.trunc(i / levelW)) + xOffset, levelYoffset * 32 + 32 * Math.trunc(i / levelW) + yOffset, sprite, flipV, rotateMinus90, true, dangerous, fw, fh, xSpriteOffset, ySpriteOffset);
+	if (terrain[i] == 9) {
+		isCollidable = true;
+		sprite = levelPath + "assets/sprBlockTop.png";
+	}
+	if (isCollidable) addObject("ter" + i, levelXoffset * 32 + 32 * (i - levelW * Math.trunc(i / levelW)) + xOffset, levelYoffset * 32 + 32 * Math.trunc(i / levelW) + yOffset, sprite, flipV, rotateMinus90, true, dangerous, fw, fh, xSpriteOffset, ySpriteOffset);
 }
 
 function addObject(fid, fx, fy, fimg, flipV, rotateMinus90, collidable, dangerous, fw, fh, spriteXoffset, spriteYoffset) {
@@ -157,4 +173,4 @@ function padLeadingZeros(num, size) {
 }
 
 levLoop = setInterval(levelUpdate, 1000/30);
-animLoop = setInterval(animUpdate, 1000/15);
+animLoop = setInterval(animUpdate, 1000/10);

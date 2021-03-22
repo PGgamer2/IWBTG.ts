@@ -1,9 +1,9 @@
 # [IWBTG.js](https://pggamer2.github.io/IWBTG.js/)
-A remake of the popular game [I Wanna Be The Guy](https://iwbtg.kayin.moe/) in JavaScript.
+A remake of the popular game [I Wanna Be The Guy](https://iwbtg.kayin.moe/) in pure JavaScript.
 
 It is incomplete. At the moment there's only:
 - A save file selector scene (you can't save the game at the moment, I'll add this feature later).
-- A scene of the game, made as a test.
+- Some levels of the game.
 - The Kid. He can move, double jump and shoot.
 - Spikes. Ouch...
 

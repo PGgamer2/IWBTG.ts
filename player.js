@@ -1,4 +1,4 @@
-var player = {'dx': 0, 'dy': 0, 'x': levelXoffset * 32 + 34, 'y': levelYoffset * 32 + 320, 'speed': 6,
+var player = {'dx': 0, 'dy': 0, 'x': levelXoffset * 32 + 165, 'y': levelYoffset * 32 + 64, 'speed': 6,
               'w': 14, 'h': 21, 'dead': false, 'shootTimer': 0, 'bullets': [],
               'spriteH': 1, 'grounded': false, 'jump': 1, 'jumpTimer': 0, 'jumpTime': 8.5, 'maxJumps': 2};
 var gravity = 3;
@@ -29,8 +29,8 @@ onkeydown = onkeyup = function(e){
 function playerUpdate() {
 	if (keymap[82] || (mouseClicking && player["dead"])) {
 		// Reset
-		player["x"] = levelXoffset * 32 + 32;
-		player["y"] = levelYoffset * 32 + 320;
+		player["x"] = levelXoffset * 32 + 165;
+		player["y"] = levelYoffset * 32 + 64;
 		if (player["dead"]) {
 			player["dead"] = false;
 			try { musicElem.currentTime = 0; } catch (e) {}

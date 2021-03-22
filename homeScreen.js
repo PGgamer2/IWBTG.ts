@@ -101,7 +101,7 @@ for (i = 1; i <= 3; i++) {
 		angle.src = "assets/megaman/sprBlock.png";
 		side.src = "assets/megaman/sprFallingCeilingWall.png"
 		angle.style.left = a == 1 || a == 3 ? selBoxLeft + 192 : selBoxLeft - 32;
-		angle.style.top = a > 1 ? windowH / 4 + selBox.offsetHeight : windowH / 4 - 32;
+		angle.style.top = a > 1 ? windowH / 4 + selBox.getBoundingClientRect().height : windowH / 4 - 32;
 		switch (a) {
 			case 0:
 			case 3:
@@ -116,7 +116,7 @@ for (i = 1; i <= 3; i++) {
 				side.style.left = a == 2 ? selBoxLeft + 192 : selBoxLeft - 32;
 				side.style.top = windowH / 4;
 				side.style.width = "32px";
-				side.style.height = selBox.offsetHeight;
+				side.style.height = selBox.getBoundingClientRect().height;
 				break;
 		}
 		document.body.appendChild(angle);
@@ -125,7 +125,7 @@ for (i = 1; i <= 3; i++) {
 }
 
 function startGame(saveFileNumber) {
-	location.href = "levels/graveyard.html";
+	location.href = "levels/index.html";
 }
 
 setInterval(function() {
