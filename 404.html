@@ -1,12 +1,54 @@
 <html lang="en">
 	<head>
-		<title>Error 404 - IWBTG.js</title>
+		<title>Error 404 - IWBTG.ts</title>
+		<link rel="shortcut icon" href="/IWBTG.ts/favicon.ico" />
+		<style>
+			@font-face {
+				font-family: PressStart2P;
+				src: url(/assets/fonts/PressStart2P.ttf);
+			}
+			* {
+				-webkit-font-smoothing: never;
+				font-smooth: never;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				margin: 0;
+				font-family: PressStart2P;
+				font-size: 32px;
+				color: black;
+			}
+			html {
+				background: rgb(1,0,16);
+				background: linear-gradient(180deg, rgba(1,0,16,1) 0%, rgba(1,1,39,1) 35%);
+			}
+			#moon {
+				image-rendering: optimizeSpeed;
+				image-rendering: -moz-crisp-edges;
+				image-rendering: -webkit-optimize-contrast;
+				image-rendering: -o-crisp-edges;
+				image-rendering: pixelated;
+				-ms-interpolation-mode: nearest-neighbor;
+				width: 75vw;
+				position: absolute;
+				transform: translateY(-40vw);
+				z-index: -1;
+				left: 0;
+				right: 0;
+				margin: auto;
+			}
+			#msg {
+				margin: 0 auto;
+				display: table;
+				transform: translateY(10vw);
+			}
+		</style>
 	</head>
 	<body>
-		<h1>Error 404: page not found.</h1>
-		<a href="https://pggamer2.github.io/IWBTG.js/">Redirecting to the main page...</a>
-		<script>
-			window.location.href = "https://pggamer2.github.io/IWBTG.js/";
-		</script>
+		<div id="msg">Error 404<br>Where's the Kid?</div>
+		<img id="moon" src="/IWBTG.ts/assets/textures/objects/Guy/sprMoonBig.png"></img>
 	</body>
 </html>

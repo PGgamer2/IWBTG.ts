@@ -1,42 +1,51 @@
 <html lang="en">
 	<head>
-		<title>Home - IWBTG.js</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+		<title>IWBTG.ts</title>
+		<link rel="shortcut icon" href="favicon.ico" />
 		<style>
-			.fileSelectionBox {
-				background-color: black;
-				width: 192px;
-				height: 210px;
-				top: 25vh;
-				cursor: pointer;
+			* {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
 			}
-			.fileSelectionBox * {
-				margin-left: 19px;
-				margin-top: 10px;
-				margin-bottom: 10px;
-				position: static;
+			html {
+				background-image: url("assets/textures/objects/sprFallingBlock.png");
+				background-repeat: repeat;
 			}
-			.savetitle {
-				margin-top: 4px;
-				margin-bottom: 4px;
-				font-size: 25px;
+			body {
+				margin: 0;
+				overflow: hidden;
 			}
-			#saveFileThumbnail1, #saveFileThumbnail2, #saveFileThumbnail3 {
-				margin-left: 0;
-				width: 192px;
-				height: auto;
+			#ribbon {
+				position: absolute;
+				right: 0;
+			}
+			#main-canvas {
+				image-rendering: optimizeSpeed;
+				image-rendering: -moz-crisp-edges;
+				image-rendering: -webkit-optimize-contrast;
+				image-rendering: -o-crisp-edges;
+				image-rendering: pixelated;
+				-ms-interpolation-mode: nearest-neighbor;
+    			padding: 0;
+    			margin: auto;
+    			display: block;
+				background-color: white;
+				border: 2px solid black;
+    			position: absolute;
+    			top: 0;
+    			bottom: 0;
+    			left: 0;
+				right: 0;
 			}
 		</style>
-		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 	<body>
-		<audio id="music" preload="auto" loop autoplay>
-		  <source src="sounds/saveselect.ogg" type="audio/ogg">
-		  <source src="sounds/mp3/saveselect.mp3" type="audio/mpeg">
-		</audio>
-		<script src="polyfill.js"></script>
-		<script src="homeScreen.js"></script>
+		<a id="ribbon" href="https://github.com/PGgamer2/IWBTG.ts"><img loading="lazy" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+		<canvas id="main-canvas" width="100" height="100">This browser doesn't support canvases</canvas>
+		<script src="src-js/bundle.js"></script>
 	</body>
-	<div id="loading"></div>
 </html>
