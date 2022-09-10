@@ -1,7 +1,6 @@
-'use strict'
-
 import Vector from './Vector';
 import Box from './Box';
+import Polygon from './Polygon';
 
 /**
  * ## Circle
@@ -13,6 +12,10 @@ import Box from './Box';
  * a radius of `0`.
  */
 export default class Circle {
+  public pos: Vector;
+  public r: number;
+  public offset: Vector = new Vector();
+
   /**
    * @param {Vector} pos A Vector representing the center of this Circle.
    * @param {number} r The radius of this Circle. 
@@ -20,7 +23,6 @@ export default class Circle {
   constructor(pos = new Vector(), r = 0) {
     this.pos = pos;
     this.r = r;
-    this.offset = new Vector();
   }
 
   /**
@@ -30,7 +32,7 @@ export default class Circle {
    * 
    * @returns {Polygon} Returns the AABB.
    */
-  getAABB() {
+  public getAABB(): Polygon {
     const r = this.r;
 
     const corner = this.pos.clone().add(this.offset).sub(new Vector(r, r));
@@ -45,7 +47,7 @@ export default class Circle {
    * 
    * @returns {Circle} Returns this for chaining.
    */
-  setOffset(offset) {
+  public setOffset(offset: Vector): Circle {
     this.offset = offset;
 
     return this;

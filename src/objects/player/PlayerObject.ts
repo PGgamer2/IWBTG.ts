@@ -2,12 +2,12 @@ import { Game } from '../../Game';
 import { ImageObject } from '../ImageObject';
 import { BulletObject } from './BulletObject';
 import { randomUnsecureUUID } from '../../Utils';
-import SAT from '../../SAT/SAT';
 import Vector from '../../SAT/Vector';
 import { BloodParticle } from './BloodParticle';
 import { GibParticle } from './GibParticle';
 import { DeathMessage } from './DeathMessage';
 import { AudioManager } from '../../AudioManager';
+import Polygon from '../../SAT/Polygon';
 export class PlayerObject extends ImageObject {
     public static readonly velocity: number = 175;
     public static readonly gravity: number = 24;
@@ -27,9 +27,9 @@ export class PlayerObject extends ImageObject {
 
     constructor(x: number, y: number, id: string = "player") {
         super(id, x, y, 32, 32, "assets/textures/objects/player/sprPlayer.png");
-        this.polygon = new SAT.Polygon(new SAT.Vector(x, y), [
-            new SAT.Vector(9, 11), new SAT.Vector(9, 32),
-            new SAT.Vector(23, 32), new SAT.Vector(23, 11)
+        this.polygon = new Polygon(new Vector(x, y), [
+            new Vector(9, 11), new Vector(9, 32),
+            new Vector(23, 32), new Vector(23, 11)
         ]);
     }
 

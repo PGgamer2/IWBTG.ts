@@ -1,5 +1,6 @@
+import Polygon from '../SAT/Polygon';
 import Response from '../SAT/Response';
-import SAT from '../SAT/SAT';
+import Vector from '../SAT/Vector';
 import { BasicObject } from './BasicObject';
 import { ImageObject } from './ImageObject';
 import { PlayerObject } from './player/PlayerObject';
@@ -11,23 +12,23 @@ export class SpikeObject extends ImageObject {
         this.direction = direction;
         switch(this.direction) {
         case 3:
-            this.polygon = new SAT.Polygon(new SAT.Vector(x, y), [
-                new SAT.Vector(1, 16), new SAT.Vector(31, 31), new SAT.Vector(31, 1)
+            this.polygon = new Polygon(new Vector(x, y), [
+                new Vector(1, 16), new Vector(31, 31), new Vector(31, 1)
             ]);
             break;
         case 2:
-            this.polygon = new SAT.Polygon(new SAT.Vector(x, y), [
-                new SAT.Vector(1, 1), new SAT.Vector(16, 31), new SAT.Vector(31, 1)
+            this.polygon = new Polygon(new Vector(x, y), [
+                new Vector(1, 1), new Vector(16, 31), new Vector(31, 1)
             ]);
             break;
         case 1:
-            this.polygon = new SAT.Polygon(new SAT.Vector(x, y), [
-                new SAT.Vector(1, 1), new SAT.Vector(1, 31), new SAT.Vector(31, 16)
+            this.polygon = new Polygon(new Vector(x, y), [
+                new Vector(1, 1), new Vector(1, 31), new Vector(31, 16)
             ]);
             break;
         default:
-            this.polygon = new SAT.Polygon(new SAT.Vector(x, y), [
-                new SAT.Vector(16, 1), new SAT.Vector(1, 31), new SAT.Vector(31, 31)
+            this.polygon = new Polygon(new Vector(x, y), [
+                new Vector(16, 1), new Vector(1, 31), new Vector(31, 31)
             ]);
         }
     }

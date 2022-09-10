@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * ## Vector
  * 
@@ -9,6 +7,9 @@
  * it will be set to `0`.
  */
 export default class Vector {
+  public x: number;
+  public y: number;
+
   /**
    * @param {number} [x=0] The x coordinate of this Vector.
    * @param {number} [y=0] The y coordinate of this Vector.
@@ -21,11 +22,11 @@ export default class Vector {
   /**
    * Copy the values of another Vector into this one.
    * 
-   * @param {*} other The other Vector.
+   * @param {Vector} other The other Vector.
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  copy(other) {
+  public copy(other: Vector): Vector {
     this.x = other.x;
     this.y = other.y;
 
@@ -37,7 +38,7 @@ export default class Vector {
    * 
    * @returns {Vector} The new cloned Vector.
    */
-  clone() {
+  public clone(): Vector {
     return new Vector(this.x, this.y);
   }
 
@@ -48,7 +49,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  perp() {
+  public perp(): Vector {
     const x = this.x;
 
     this.x = this.y;
@@ -64,7 +65,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  rotate(angle) {
+  public rotate(angle: number): Vector {
     const x = this.x;
     const y = this.y;
 
@@ -79,7 +80,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  reverse() {
+  public reverse(): Vector {
     this.x = -this.x;
     this.y = -this.y;
 
@@ -91,7 +92,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  normalize() {
+  public normalize(): Vector {
     const d = this.len();
 
     if (d > 0) {
@@ -109,7 +110,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  add(other) {
+  public add(other: Vector): Vector {
     this.x += other.x;
     this.y += other.y;
 
@@ -123,7 +124,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  sub(other) {
+  public sub(other: Vector): Vector {
     this.x -= other.x;
     this.y -= other.y;
 
@@ -141,7 +142,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  scale(x, y) {
+  public scale(x: number, y?: number): Vector {
     this.x *= x;
     this.y *= typeof y != 'undefined' ? y : x;
 
@@ -155,7 +156,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  project(other) {
+  public project(other: Vector): Vector {
     const amt = this.dot(other) / other.len2();
 
     this.x = amt * other.x;
@@ -173,7 +174,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  projectN(other) {
+  public projectN(other: Vector): Vector {
     const amt = this.dot(other);
 
     this.x = amt * other.x;
@@ -189,7 +190,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  reflect(axis) {
+  public reflect(axis: Vector): Vector {
     const x = this.x;
     const y = this.y;
 
@@ -210,7 +211,7 @@ export default class Vector {
    * 
    * @returns {Vector} Returns this for chaining.
    */
-  reflectN(axis) {
+  public reflectN(axis: Vector): Vector {
     const x = this.x;
     const y = this.y;
 
@@ -227,27 +228,27 @@ export default class Vector {
    * 
    * @param {Vector} other The Vector to dot this one against.
    * 
-   * @returns {Vector} Returns this for chaining.
+   * @returns {number} Returns dot product.
    */
-  dot(other) {
+  public dot(other: Vector): number {
     return this.x * other.x + this.y * other.y;
   }
 
   /**
    * Get the squared length of this Vector.
    * 
-   * @returns {Vector} Returns this for chaining.
+   * @returns {number} Returns squared length.
    */
-  len2() {
+  public len2(): number {
     return this.dot(this);
   }
 
   /**
    * Get the length of this Vector.
    * 
-   * @returns {Vector} Returns this for chaining.
+   * @returns {number} Returns length.
    */
-  len() {
+  public len(): number {
     return Math.sqrt(this.len2());
   }
 }

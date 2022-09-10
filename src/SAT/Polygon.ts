@@ -1,5 +1,3 @@
-'use strict'
-
 import Vector from './Vector';
 import Box from './Box';
 
@@ -14,6 +12,14 @@ import Box from './Box';
  * `pos` can be changed directly.
  */
 export default class Polygon {
+  public pos: Vector;
+  public angle: number = 0;
+  public offset: Vector = new Vector();
+  public points: Array<Vector>;
+  public calcPoints: Array<Vector>;
+  public edges: Array<Vector>;
+  public normals: Array<Vector>;
+
   /**
    * Create a new polygon, passing in a position vector, and an array of points (represented by vectors 
    * relative to the position vector). If no position is passed in, the position of the polygon will be `(0,0)`.
@@ -21,11 +27,8 @@ export default class Polygon {
    * @param {Vector} [pos=Vector] A vector representing the origin of the polygon (all other points are relative to this one)
    * @param {Array<Vector>} [points=[]] An array of vectors representing the points in the polygon, in counter-clockwise order.
    */
-  constructor(pos = new Vector(), points = []) {
+  constructor(pos = new Vector(), points: Array<Vector> = []) {
     this.pos = pos;
-    this.angle = 0;
-    this.offset = new Vector();
-
     this.setPoints(points);
   }
 
@@ -40,16 +43,16 @@ export default class Polygon {
    * 
    * @returns {Polygon} Returns this for chaining.
    */
-  setPoints(points) {
+  public setPoints(points: Array<Vector>): Polygon {
     // Only re-allocate if this is a new polygon or the number of points has changed.
     const lengthChanged = !this.points || this.points.length !== points.length;
 
     if (lengthChanged) {
       let i;
 
-      const calcPoints = this.calcPoints = [];
-      const edges = this.edges = [];
-      const normals = this.normals = [];
+      const calcPoints: Array<Vector> = this.calcPoints = [];
+      const edges: Array<Vector> = this.edges = [];
+      const normals: Array<Vector> = this.normals = [];
 
       // Allocate the vector arrays for the calculated properties
       for (i = 0; i < points.length; i++) {
@@ -83,7 +86,7 @@ export default class Polygon {
    * 
    * @returns {Polygon} Returns this for chaining.
    */
-  setAngle(angle) {
+  public setAngle(angle: number): Polygon {
     this.angle = angle;
 
     this._recalc();
@@ -98,7 +101,7 @@ export default class Polygon {
    * 
    * @returns {Polygon} Returns this for chaining.
    */
-  setOffset(offset) {
+  public setOffset(offset: Vector): Polygon {
     this.offset = offset;
 
     this._recalc();
@@ -115,7 +118,7 @@ export default class Polygon {
    * 
    * @returns {Polygon} Returns this for chaining.
    */
-  rotate(angle) {
+  public rotate(angle: number): Polygon {
     const points = this.points;
     const len = points.length;
 
@@ -136,7 +139,7 @@ export default class Polygon {
    * 
    * @returns {Polygon} Returns this for chaining.
    */
-  translate(x, y) {
+  public translate(x: number, y: number): Polygon {
     const points = this.points;
     const len = points.length;
 
@@ -159,7 +162,7 @@ export default class Polygon {
    * 
    * @returns {Polygon} Returns this for chaining.
    */
-  _recalc() {
+  private _recalc(): Polygon {
     // Calculated points - this is what is used for underlying collisions and takes into account
     // the angle/offset set on the polygon.
     const calcPoints = this.calcPoints;
@@ -211,9 +214,9 @@ export default class Polygon {
    * 
    * Note: Returns a _new_ `Polygon` each time you call this.
    * 
-   * @returns {Polygon} Returns this for chaining.
+   * @returns {Polygon} Returns AABB.
    */
-  getAABB() {
+  public getAABB(): Polygon {
     const points = this.calcPoints;
 
     let xMin = points[0].x;
@@ -225,14 +228,14 @@ export default class Polygon {
     for (let i = 1; i < points.length; i++) {
       const point = points[i];
 
-      if (point["x"] < xMin) xMin = point["x"];
-      else if (point["x"] > xMax) xMax = point["x"];
+      if (point.x < xMin) xMin = point.x;
+      else if (point.x > xMax) xMax = point.x;
 
-      if (point["y"] < yMin) yMin = point["y"];
-      else if (point["y"] > yMax) yMax = point["y"];
+      if (point.y < yMin) yMin = point.y;
+      else if (point.y > yMax) yMax = point.y;
     }
 
-    return new Box(this['pos'].clone().add(new Vector(xMin, yMin)), xMax - xMin, yMax - yMin).toPolygon();
+    return new Box(this.pos.clone().add(new Vector(xMin, yMin)), xMax - xMin, yMax - yMin).toPolygon();
   }
 
   /**
@@ -246,7 +249,7 @@ export default class Polygon {
    * 
    * @returns {Vector} Returns a Vector that contains the coordinates of the centroid.
    */
-  getCentroid() {
+  public getCentroid(): Vector {
     const points = this.calcPoints;
     const len = points.length;
 
@@ -258,10 +261,10 @@ export default class Polygon {
       const p1 = points[i];
       const p2 = i === len - 1 ? points[0] : points[i + 1]; // Loop around if last point
 
-      const a = p1["x"] * p2["y"] - p2["x"] * p1["y"];
+      const a = p1.x * p2.y - p2.x * p1.y;
 
-      cx += (p1["x"] + p2["x"]) * a;
-      cy += (p1["y"] + p2["y"]) * a;
+      cx += (p1.x + p2.x) * a;
+      cy += (p1.y + p2.y) * a;
       ar += a;
     }
 

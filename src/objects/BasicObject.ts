@@ -2,6 +2,7 @@ import { Game } from '../Game';
 import SAT from '../SAT/SAT';
 import Response from '../SAT/Response';
 import Polygon from '../SAT/Polygon';
+import Vector from '../SAT/Vector';
 export abstract class BasicObject {
     public polygon: Polygon;
     public collision: boolean = true;
@@ -10,15 +11,15 @@ export abstract class BasicObject {
     constructor(id: string, x: number, y: number, w: number, h: number) {
         this.id = id;
         if (w == 0 && h == 0) this.collision = false;
-        this.polygon = new SAT.Polygon(new SAT.Vector(x, y), [
-            new SAT.Vector(), new SAT.Vector(0, h),
-            new SAT.Vector(w, h), new SAT.Vector(w, 0)
+        this.polygon = new Polygon(new Vector(x, y), [
+            new Vector(), new Vector(0, h),
+            new Vector(w, h), new Vector(w, 0)
         ]);
     }
 
     public moveBy(x: number, y: number): boolean {
         let collided: boolean = false;
-        this.polygon.pos.add(new SAT.Vector(x, y));
+        this.polygon.pos.add(new Vector(x, y));
         let response: Response = new Response();
         for (let i = 0; i < Game.level.objects.length; i++) {
             if (!Game.level.objects[i].collision || Game.level.objects[i].id == this.id) continue;

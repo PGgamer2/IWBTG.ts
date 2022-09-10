@@ -1,5 +1,3 @@
-'use strict'
-
 import Vector from './Vector';
 import Polygon from './Polygon';
 
@@ -9,6 +7,10 @@ import Polygon from './Polygon';
  * Represents an axis-aligned box, with a width and height.
  */
 export default class Box {
+  public pos: Vector;
+  public w: number;
+  public h: number;
+
   /**
    * Creates a new Box, with the specified position, width, and height.
    * 
@@ -30,7 +32,7 @@ export default class Box {
    * 
    * @returns {Polygon} A new Polygon that represents this Box.
    */
-  toPolygon() {
+  public toPolygon(): Polygon {
     const pos = this.pos;
     const w = this.w;
     const h = this.h;

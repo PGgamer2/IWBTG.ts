@@ -1,5 +1,3 @@
-'use strict'
-
 import Vector from './Vector';
 
 /**
@@ -11,15 +9,14 @@ import Vector from './Vector';
  * - Whether the first object is entirely inside the second, and vice versa.
  */
 export default class Response {
-  constructor() {
-    this.a = null;
-    this.b = null;
+  public a: any = null;
+  public b: any = null;
+  public overlapN = new Vector();
+  public overlapV = new Vector();
 
-    this.overlapN = new Vector();
-    this.overlapV = new Vector();
-
-    this.clear();
-  }
+  public aInB: boolean = true;
+  public bInA: boolean = true;
+  public overlap: number = Number.MAX_VALUE;
 
   /**
    * Set some values of the response back to their defaults.
@@ -28,7 +25,7 @@ export default class Response {
    * 
    * @returns {Response} Returns this for chaining.
    */
-  clear() {
+  public clear(): Response {
     this.aInB = true;
     this.bInA = true;
 
@@ -36,6 +33,4 @@ export default class Response {
 
     return this;
   }
-
-  
 }

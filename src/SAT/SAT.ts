@@ -1,8 +1,7 @@
-'use strict'
-
 /*!
 * sat-js (or SAT.js) made by Jim Riecken and released under the MIT license
 * Modified by Robert Corponoi and me (SonoPG)
+* Changes made by me: Bug fixes and conversion to TypeScript
 */
 
 import Box from './Box';
@@ -20,16 +19,17 @@ import Response from './Response';
  * 
  * @type {Array<Vector>}
  */
-const T_VECTORS = [];
-for (let i = 0; i < 10; i++) T_VECTORS.push(new Vector());
-
-/**
- * A pool of arrays of numbers used in calculations to avoid allocating memory.
- * 
- * @type {Array<Array<number>>}
- */
-const T_ARRAYS = [];
-for (let i = 0; i < 5; i++) T_ARRAYS.push([]);
+ const T_VECTORS: Array<Vector> = [];
+ for (let i = 0; i < 10; i++) T_VECTORS.push(new Vector());
+ 
+ /**
+  * A pool of arrays of numbers used in calculations to avoid allocating memory.
+  * 
+  * @type {Array<Array<number>>}
+  */
+ const T_ARRAYS: Array<Array<number>> = [];
+ for (let i = 0; i < 5; i++) T_ARRAYS.push([]);
+ 
 
 /**
  * Temporary response used for Polygon hit detection.
@@ -64,7 +64,7 @@ const RIGHT_VORONOI_REGION = 1;
  * @param {Vector} normal The unit vector axis to flatten on.
  * @param {Array<number>} result An array. After calling this function, result[0] will be the minimum value, result[1] will be the maximum value.
  */
-function flattenPointsOn(points, normal, result) {
+function flattenPointsOn(points: Array<Vector>, normal: Vector, result: Array<number>): void {
   let min = Number.MAX_VALUE;
   let max = -Number.MAX_VALUE;
 
@@ -97,7 +97,7 @@ function flattenPointsOn(points, normal, result) {
  *                  MIDDLE_VORONOI_REGION (0) if it is the middle region,
  *                  RIGHT_VORONOI_REGION (1) if it is the right region.
  */
-function voronoiRegion(line, point) {
+function voronoiRegion(line: Vector, point: Vector): number {
   const len2 = line.len2();
   const dp = point.dot(line);
 
@@ -111,14 +111,7 @@ function voronoiRegion(line, point) {
   else return MIDDLE_VORONOI_REGION;
 }
 
-export default {
-  Box,
-  Vector,
-  Circle,
-  Polygon,
-  Response,
-  V: Vector,
-  
+export default class SAT {
   /**
    * Check whether two convex polygons are separated by the specified axis (must be a unit vector).
    * 
@@ -130,7 +123,7 @@ export default {
    * @param {Response=} response A Response object (optional) which will be populated if the axis is not a separating axis.
    * @return {boolean} true if it is a separating axis, false otherwise.  If false, and a response is passed in, information about how much overlap and the direction of the overlap will be populated.
    */
-  isSeparatingAxis(aPos, bPos, aPoints, bPoints, axis, response) {
+  public static isSeparatingAxis(aPos: Vector, bPos: Vector, aPoints: Array<Vector>, bPoints: Array<Vector>, axis: Vector, response?: Response): boolean {
     const rangeA = T_ARRAYS.pop();
     const rangeB = T_ARRAYS.pop();
   
@@ -162,13 +155,13 @@ export default {
   
       // A starts further left than B
       if (rangeA[0] < rangeB[0]) {
-        response['aInB'] = false;
+        response.aInB = false;
   
         // A ends before B does. We have to pull A out of B
         if (rangeA[1] < rangeB[1]) {
           overlap = rangeA[1] - rangeB[0];
   
-          response['bInA'] = false;
+          response.bInA = false;
           // B is fully inside A.  Pick the shortest way out.
         } else {
           const option1 = rangeA[1] - rangeB[0];
@@ -178,13 +171,13 @@ export default {
         }
         // B starts further left than A
       } else {
-        response['bInA'] = false;
+        response.bInA = false;
   
         // B ends before A ends. We have to push A out of B
         if (rangeA[1] > rangeB[1]) {
           overlap = rangeA[0] - rangeB[1];
   
-          response['aInB'] = false;
+          response.aInB = false;
           // A is fully inside B.  Pick the shortest way out.
         } else {
           const option1 = rangeA[1] - rangeB[0];
@@ -197,11 +190,11 @@ export default {
       // If this is the smallest amount of overlap we've seen so far, set it as the minimum overlap.
       const absOverlap = Math.abs(overlap);
   
-      if (absOverlap < response['overlap']) {
-        response['overlap'] = absOverlap;
-        response['overlapN'].copy(axis);
+      if (absOverlap < response.overlap) {
+        response.overlap = absOverlap;
+        response.overlapN.copy(axis);
   
-        if (overlap < 0) response['overlapN'].reverse();
+        if (overlap < 0) response.overlapN.reverse();
       }
     }
   
@@ -211,7 +204,7 @@ export default {
     T_ARRAYS.push(rangeB);
   
     return false;
-  },
+  }
 
   /**
    * ## Collision Tests
@@ -225,17 +218,17 @@ export default {
    * 
    * @returns {boolean} Returns true if the point is inside the circle or false otherwise.
    */
-  pointInCircle(p, c) {
-    const differenceV = T_VECTORS.pop().copy(p).sub(c['pos']).sub(c['offset']);
+  public static pointInCircle(p: Vector, c: Circle): boolean {
+    const differenceV = T_VECTORS.pop().copy(p).sub(c.pos).sub(c.offset);
 
-    const radiusSq = c['r'] * c['r'];
+    const radiusSq = c.r * c.r;
     const distanceSq = differenceV.len2();
 
     T_VECTORS.push(differenceV);
 
     // If the distance between is smaller than the radius then the point is inside the circle.
     return distanceSq <= radiusSq;
-  },
+  }
 
   /**
    * Check if a point is inside a convex polygon.
@@ -245,16 +238,16 @@ export default {
    * 
    * @returns {boolean} Returns true if the point is inside the polygon or false otherwise.
    */
-  pointInPolygon(p, poly) {
-    TEST_POINT['pos'].copy(p);
+  public static pointInPolygon(p: Vector, poly: Polygon): boolean {
+    TEST_POINT.pos.copy(p);
     T_RESPONSE.clear();
 
-    let result = this.testPolygonPolygon(TEST_POINT, poly, T_RESPONSE);
+    let result = SAT.testPolygonPolygon(TEST_POINT, poly, T_RESPONSE);
 
-    if (result) result = T_RESPONSE['aInB'];
+    if (result) result = T_RESPONSE.aInB;
 
     return result;
-  },
+  }
 
   /**
    * Check if two circles collide.
@@ -265,11 +258,11 @@ export default {
    * 
    * @returns {boolean} Returns true if the circles intersect or false otherwise.
    */
-  testCircleCircle(a, b, response) {
+  public static testCircleCircle(a: Circle, b: Circle, response?: Response): boolean {
     // Check if the distance between the centers of the two circles is greater than their combined radius.
-    const differenceV = T_VECTORS.pop().copy(b['pos']).add(b['offset']).sub(a['pos']).sub(a['offset']);
+    const differenceV = T_VECTORS.pop().copy(b.pos).add(b.offset).sub(a.pos).sub(a.offset);
 
-    const totalRadius = a['r'] + b['r'];
+    const totalRadius = a.r + b.r;
     const totalRadiusSq = totalRadius * totalRadius;
     const distanceSq = differenceV.len2();
 
@@ -298,7 +291,7 @@ export default {
     T_VECTORS.push(differenceV);
 
     return true;
-  },
+  }
 
   /**
    * Check if a polygon and a circle collide.
@@ -309,7 +302,7 @@ export default {
    * 
    * @returns {boolean} Returns true if they intersect or false otherwise.
    */
-  testPolygonCircle(polygon, circle, response) {
+  public static testPolygonCircle(polygon: Polygon, circle: Circle, response?: Response): boolean {
     // Get the position of the circle relative to the polygon.
     const circlePos = T_VECTORS.pop().copy(circle.pos).add(circle.offset).sub(polygon.pos);
 
@@ -452,7 +445,7 @@ export default {
     T_VECTORS.push(point);
 
     return true;
-  },
+  }
 
   /**
    * Check if a circle and a polygon collide.
@@ -466,9 +459,9 @@ export default {
    * 
    * @returns {boolean} Returns true if they intersect or false otherwise.
    */
-  testCirclePolygon(circle, polygon, response) {
+  public static testCirclePolygon(circle: Circle, polygon: Polygon, response?: Response): boolean {
     // Test the polygon against the circle.
-    const result = testPolygonCircle(polygon, circle, response);
+    const result = SAT.testPolygonCircle(polygon, circle, response);
 
     if (result && response) {
       // Swap A and B in the response.
@@ -486,7 +479,7 @@ export default {
     }
 
     return result;
-  },
+  }
 
   /**
    * Checks whether polygons collide.
@@ -497,7 +490,7 @@ export default {
    * 
    * @returns {boolean} Returns true if they intersect or false otherwise.
    */
-  testPolygonPolygon(a, b, response) {
+  public static testPolygonPolygon(a: Polygon, b: Polygon, response?: Response): boolean {
     const aPoints = a.calcPoints;
     const aLen = aPoints.length;
 
@@ -506,14 +499,14 @@ export default {
 
     // If any of the edge normals of A is a separating axis, no intersection.
     for (let i = 0; i < aLen; i++) {
-      if (this.isSeparatingAxis(a.pos, b.pos, aPoints, bPoints, a.normals[i], response)) {
+      if (SAT.isSeparatingAxis(a.pos, b.pos, aPoints, bPoints, a.normals[i], response)) {
         return false;
       }
     }
 
     // If any of the edge normals of B is a separating axis, no intersection.
     for (let i = 0; i < bLen; i++) {
-      if (this.isSeparatingAxis(a.pos, b.pos, aPoints, bPoints, b.normals[i], response)) {
+      if (SAT.isSeparatingAxis(a.pos, b.pos, aPoints, bPoints, b.normals[i], response)) {
         return false;
       }
     }
@@ -522,10 +515,10 @@ export default {
     // and we've already calculated the smallest overlap (in isSeparatingAxis). 
     // Calculate the final overlap vector.
     if (response) {
-      response['a'] = a;
-      response['b'] = b;
+      response.a = a;
+      response.b = b;
 
-      response['overlapV'].copy(response['overlapN']).scale(response['overlap']);
+      response.overlapV.copy(response.overlapN).scale(response.overlap);
     }
 
     return true;

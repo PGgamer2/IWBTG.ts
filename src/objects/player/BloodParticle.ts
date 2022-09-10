@@ -5,6 +5,7 @@ import { PlayerObject } from './PlayerObject';
 import { Game } from '../../Game';
 import { BasicObject } from '../BasicObject';
 import { SpikeObject } from '../SpikeObject';
+import Vector from '../../SAT/Vector';
 export class BloodParticle extends ImageObject {
     public dx: number = 0;
     public dy: number = 0;
@@ -39,7 +40,7 @@ export class BloodParticle extends ImageObject {
 
     public moveBy(x: number, y: number): boolean {
         let collided: boolean = false;
-        this.polygon.pos.add(new SAT.Vector(x, y));
+        this.polygon.pos.add(new Vector(x, y));
         let response: Response = new Response();
         for (let i = 0; i < Game.level.objects.length; i++) {
             if (!Game.level.objects[i].collision || Game.level.objects[i].id == this.id) continue;
