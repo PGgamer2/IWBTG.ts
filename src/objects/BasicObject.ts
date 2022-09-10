@@ -39,4 +39,6 @@ export abstract class BasicObject {
     public abstract update(delta: number): void;
 
     public abstract draw(ctx: CanvasRenderingContext2D, delta: number): void;
+
+    public dispose(): void {}
 }

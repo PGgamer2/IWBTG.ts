@@ -14,4 +14,9 @@ export class ImageObject extends BasicObject {
     public draw(ctx: CanvasRenderingContext2D, delta: number) {
         ctx.drawImage(this.image, this.polygon.pos.x, this.polygon.pos.y, this.image.width, this.image.height);
     }
+
+    public dispose(): void {
+        this.image.remove();
+        this.image = null;
+    }
 }

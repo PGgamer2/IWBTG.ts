@@ -13,6 +13,7 @@ export abstract class BasicLevel {
         while(this.removeQueue.length != 0) {
             for (let o = 0; o < this.objects.length; o++) {
                 if (this.objects[o].id == this.removeQueue[0]) {
+                    this.objects[o].dispose();
                     this.objects.splice(o, 1);
                     break;
                 }
@@ -55,6 +56,13 @@ export abstract class BasicLevel {
             ctx.stroke();
         }
         ctx.restore();
+    }
+
+    public dispose(): void {
+        while(this.objects.length != 0) {
+            this.objects[0].dispose();
+            this.objects.splice(0, 1);
+        }
     }
 
     public abstract instanceFabric(): BasicLevel;
