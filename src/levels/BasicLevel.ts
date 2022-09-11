@@ -1,7 +1,7 @@
-import { BasicObject } from '../objects/BasicObject';
-import { Game } from '../Game';
+import BasicObject from '../objects/BasicObject';
+import Game from '../Game';
 import Vector from '../SAT/Vector';
-export abstract class BasicLevel {
+export default abstract class BasicLevel {
     public objects: Array<BasicObject> = [];
     protected removeQueue: Array<string> = [];
 

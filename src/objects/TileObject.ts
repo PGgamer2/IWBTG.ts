@@ -1,5 +1,5 @@
-import { ImageObject } from "./ImageObject";
-export class TileObject extends ImageObject {
+import ImageObject from "./ImageObject";
+export default class TileObject extends ImageObject {
     public otherImages: HTMLImageElement[];
     public totalW: number;
     public totalH: number;

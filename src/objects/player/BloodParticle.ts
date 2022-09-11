@@ -1,12 +1,12 @@
 import Response from '../../SAT/Response';
 import SAT from '../../SAT/SAT';
-import { ImageObject } from '../ImageObject';
-import { PlayerObject } from './PlayerObject';
-import { Game } from '../../Game';
-import { BasicObject } from '../BasicObject';
-import { SpikeObject } from '../SpikeObject';
+import ImageObject from '../ImageObject';
+import PlayerObject from './PlayerObject';
+import Game from '../../Game';
+import BasicObject from '../BasicObject';
+import SpikeObject from '../SpikeObject';
 import Vector from '../../SAT/Vector';
-export class BloodParticle extends ImageObject {
+export default class BloodParticle extends ImageObject {
     public dx: number = 0;
     public dy: number = 0;
     public stuck: boolean = false;

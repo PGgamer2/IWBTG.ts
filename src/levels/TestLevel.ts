@@ -1,9 +1,9 @@
-import { BasicLevel } from './BasicLevel';
-import { PlayerObject } from '../objects/player/PlayerObject';
-import { SpikeObject } from '../objects/SpikeObject';
-import { AudioManager } from '../AudioManager';
-import { TileObject } from '../objects/TileObject';
-export class TestLevel extends BasicLevel {
+import BasicLevel from './BasicLevel';
+import PlayerObject from '../objects/player/PlayerObject';
+import SpikeObject from '../objects/SpikeObject';
+import AudioManager from '../AudioManager';
+import TileObject from '../objects/TileObject';
+export default class TestLevel extends BasicLevel {
     constructor() {
         super();
         AudioManager.playMusic("assets/music/begins.ogg");

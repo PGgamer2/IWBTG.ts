@@ -1,4 +1,4 @@
-export class AudioManager {
+export default class AudioManager {
     public static audioMap: Map<string, HTMLAudioElement> = new Map();
 
     public static play(key: string, src: string = undefined, loop: boolean = false): HTMLAudioElement {

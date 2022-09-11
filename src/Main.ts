@@ -5,8 +5,8 @@
 * Original game made by Kayin: https://kayin.moe/iwbtg/
 */
 
-import { AudioManager } from "./AudioManager";
-import { Game } from "./Game";
+import AudioManager from "./AudioManager";
+import Game from "./Game";
 
 function frame(timestamp: DOMHighResTimeStamp) {
     Game.update(timestamp);

@@ -1,9 +1,9 @@
-import { Game } from '../Game';
+import Game from '../Game';
 import SAT from '../SAT/SAT';
 import Response from '../SAT/Response';
 import Polygon from '../SAT/Polygon';
 import Vector from '../SAT/Vector';
-export abstract class BasicObject {
+export default abstract class BasicObject {
     public polygon: Polygon;
     public collision: boolean = true;
     public readonly id: string;

@@ -1,5 +1,5 @@
-import { BasicObject } from './BasicObject';
-export class ImageObject extends BasicObject {
+import BasicObject from './BasicObject';
+export default class ImageObject extends BasicObject {
     public image: HTMLImageElement = new Image();
 
     constructor(id: string, x: number, y: number, w: number, h: number, src: string) {

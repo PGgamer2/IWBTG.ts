@@ -1,13 +1,13 @@
 import Response from '../../SAT/Response';
 import SAT from '../../SAT/SAT';
-import { ImageObject } from '../ImageObject';
-import { PlayerObject } from './PlayerObject';
-import { Game } from '../../Game';
-import { BasicObject } from '../BasicObject';
-import { SpikeObject } from '../SpikeObject';
+import ImageObject from '../ImageObject';
+import PlayerObject from './PlayerObject';
+import Game from '../../Game';
+import BasicObject from '../BasicObject';
+import SpikeObject from '../SpikeObject';
 import Polygon from '../../SAT/Polygon';
 import Vector from '../../SAT/Vector';
-export class GibParticle extends ImageObject {
+export default class GibParticle extends ImageObject {
     public dx: number = 0;
     public dy: number = 0;
     public type: number = 0;

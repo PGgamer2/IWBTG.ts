@@ -1,7 +1,7 @@
-import { BasicLevel } from './levels/BasicLevel';
-import { TestLevel } from './levels/TestLevel';
-import { Camera } from './Camera';
-export class Game {
+import BasicLevel from './levels/BasicLevel';
+import TestLevel from './levels/TestLevel';
+import Camera from './Camera';
+export default class Game {
     public static DEBUG: boolean = false;
     public static canvas: HTMLCanvasElement;
     public static lastTimestamp: DOMHighResTimeStamp = performance.now();

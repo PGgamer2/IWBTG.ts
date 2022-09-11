@@ -1,14 +1,14 @@
-import { Game } from '../../Game';
-import { ImageObject } from '../ImageObject';
-import { BulletObject } from './BulletObject';
+import Game from '../../Game';
+import ImageObject from '../ImageObject';
+import BulletObject from './BulletObject';
 import { randomUnsecureUUID } from '../../Utils';
 import Vector from '../../SAT/Vector';
-import { BloodParticle } from './BloodParticle';
-import { GibParticle } from './GibParticle';
-import { DeathMessage } from './DeathMessage';
-import { AudioManager } from '../../AudioManager';
+import BloodParticle from './BloodParticle';
+import GibParticle from './GibParticle';
+import DeathMessage from './DeathMessage';
+import AudioManager from '../../AudioManager';
 import Polygon from '../../SAT/Polygon';
-export class PlayerObject extends ImageObject {
+export default class PlayerObject extends ImageObject {
     public static readonly velocity: number = 175;
     public static readonly gravity: number = 24;
 

@@ -1,10 +1,10 @@
 import Polygon from '../SAT/Polygon';
 import Response from '../SAT/Response';
 import Vector from '../SAT/Vector';
-import { BasicObject } from './BasicObject';
-import { ImageObject } from './ImageObject';
-import { PlayerObject } from './player/PlayerObject';
-export class SpikeObject extends ImageObject {
+import BasicObject from './BasicObject';
+import ImageObject from './ImageObject';
+import PlayerObject from './player/PlayerObject';
+export default class SpikeObject extends ImageObject {
     public readonly direction: number;
 
     constructor(id: string, x: number, y: number, direction: number) {

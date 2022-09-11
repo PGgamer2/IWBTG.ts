@@ -1,10 +1,10 @@
-import { ImageObject } from '../ImageObject';
-import { PlayerObject } from './PlayerObject';
+import ImageObject from '../ImageObject';
+import PlayerObject from './PlayerObject';
 import Response from '../../SAT/Response';
-import { BasicObject } from '../BasicObject';
-import { Game } from '../../Game';
-import { SpikeObject } from '../SpikeObject';
-export class BulletObject extends ImageObject {
+import BasicObject from '../BasicObject';
+import Game from '../../Game';
+import SpikeObject from '../SpikeObject';
+export default class BulletObject extends ImageObject {
     protected frameTime: number = 0;
     protected direction: number;
 
