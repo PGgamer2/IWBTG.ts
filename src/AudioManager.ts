@@ -1,12 +1,13 @@
 export default class AudioManager {
     public static audioMap: Map<string, HTMLAudioElement> = new Map();
 
-    public static play(key: string, src: string = undefined, loop: boolean = false): HTMLAudioElement {
+    public static play(key: string, src: string = undefined, loop: boolean = false, volume: number = 1.0): HTMLAudioElement {
         let audio: HTMLAudioElement = AudioManager.audioMap.get(key);
         if (audio === undefined) {
             if (src === undefined) audio = new Audio();
             else audio = new Audio(src);
             audio.loop = loop;
+            audio.volume = volume;
             AudioManager.audioMap.set(key, audio);
         }
         audio.play().catch(err => {
@@ -22,9 +23,7 @@ export default class AudioManager {
         if (audio !== undefined && !audio.src.endsWith(src)) {
             AudioManager.release("_music");
         }
-        audio = AudioManager.play("_music", src, loop);
-        audio.volume = 0.75;
-        return audio;
+        return AudioManager.play("_music", src, loop, 0.75);
     }
 
     public static pause(key: string): boolean {
