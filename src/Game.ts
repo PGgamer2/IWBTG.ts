@@ -45,12 +45,7 @@ export class Game {
     }
 
     public static isButtonDown(keyName: string): boolean {
-        if (keyName.length == 1) {
-            if (!Game.keyMap.has(keyName.toLowerCase()) || !Game.keyMap.get(keyName.toLowerCase())) {
-                return Game.keyMap.has(keyName.toUpperCase()) && Game.keyMap.get(keyName.toUpperCase());
-            }
-            return true;
-        }
+        if (keyName.length == 1) keyName = keyName.toLowerCase();
         return Game.keyMap.has(keyName) && Game.keyMap.get(keyName);
     }
 }

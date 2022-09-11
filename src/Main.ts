@@ -15,7 +15,7 @@ function frame(timestamp: DOMHighResTimeStamp) {
 window.requestAnimationFrame(frame);
 
 onkeydown = function(e) {
-    Game.keyMap.set(e.key, true);
+    Game.keyMap.set(e.key.length == 1 ? e.key.toLowerCase() : e.key, true);
     AudioManager.autoPlayFix();
 };
-onkeyup = function(e) { Game.keyMap.set(e.key, false); };
+onkeyup = function(e) { Game.keyMap.set(e.key.length == 1 ? e.key.toLowerCase() : e.key, false); };
