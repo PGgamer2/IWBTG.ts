@@ -70,14 +70,9 @@ export default class PlayerObject extends ImageObject {
                 else AudioManager.play("jump2", "assets/sounds/jump2.wav");
             }
             this.jumpKeyTime += delta;
-            if (this.jumpKeyTime - delta < 0.3) {
-                if (this.jumpKeyTime < 0.3) {
-                    if (this.availableJumps == 1) this.dy = -220 * delta;
-                    else this.dy = -180 * delta;
-                } else {
-                    if (this.availableJumps == 1) this.dy = -220 * (this.jumpKeyTime - 0.3);
-                    else this.dy = -180 * (this.jumpKeyTime - 0.3);
-                }
+            if (this.jumpKeyTime < 0.3) {
+                if (this.availableJumps == 1) this.dy = -220 * delta;
+                else this.dy = -180 * delta;
             }
         } else this.jumpKeyTime = 0;
 
