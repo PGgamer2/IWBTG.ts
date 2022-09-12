@@ -52,7 +52,7 @@ export default abstract class BasicLevel {
                 }
             }
             ctx.lineWidth = 1;
-            ctx.strokeStyle = '#ff0000';
+            ctx.strokeStyle = this.objects[i].collision ? '#ff0000' : '#0000ff';
             ctx.stroke();
         }
         ctx.restore();
