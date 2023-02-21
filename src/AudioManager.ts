@@ -46,7 +46,7 @@ export default class AudioManager {
     private static autoPlayFixed: boolean = false;
     public static autoPlayFix(): void {
         if (!AudioManager.autoPlayFixed) {
-            console.info("This browser sux: trying to fix autoplay...");
+            console.info("Trying to fix autoplay...");
             AudioManager.autoPlayFixed = true;
             AudioManager.audioMap.forEach((val, key) => {
                 if (val.muted) {

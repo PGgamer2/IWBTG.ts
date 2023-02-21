@@ -11,7 +11,7 @@ export default class GibParticle extends ImageObject {
     public dx: number = 0;
     public dy: number = 0;
     public type: number = 0;
-    public bodyType: number = 0;
+    public bodyVariant: number = 0;
     
     /**
      * Type 0: body,
@@ -30,7 +30,7 @@ export default class GibParticle extends ImageObject {
         this.type = type;
         this.collision = false;
         if (this.type == 0 || this.type == 1) {
-            this.bodyType = Math.round(Math.random() * 32);
+            this.bodyVariant = Math.round(Math.random() * 32);
         }
     }
 
@@ -81,10 +81,10 @@ export default class GibParticle extends ImageObject {
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
         switch(this.type) {
         case 0:
-            ctx.drawImage(this.image, this.bodyType * 2, 0, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
+            ctx.drawImage(this.image, this.bodyVariant * 2, 0, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
             break;
         case 1:
-            ctx.drawImage(this.image, this.bodyType * 2, 9, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
+            ctx.drawImage(this.image, this.bodyVariant * 2, 9, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
             break;
         case 2:
             ctx.drawImage(this.image, 0, 18, 10, 16, this.polygon.pos.x, this.polygon.pos.y, 10, 16);
