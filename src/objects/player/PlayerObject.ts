@@ -50,7 +50,7 @@ export default class PlayerObject extends ImageObject {
             }
         } else this.leftKeyTime = 0;
 
-        if (Game.isButtonDown('z')) {
+        if (Game.isButtonDown('x')) {
             if (this.shootKeyTime == 0) {
                 let bulletId: string = "bullet" + randomUnsecureUUID();
                 AudioManager.play(bulletId, "assets/sounds/fire.wav").onended = e => { AudioManager.release(bulletId); };
@@ -63,7 +63,7 @@ export default class PlayerObject extends ImageObject {
             this.shootKeyTime++;
         } else this.shootKeyTime = 0;
 
-        if (Game.isButtonDown('Shift') && (this.availableJumps != 0 || this.jumpKeyTime != 0)) {
+        if ((Game.isButtonDown('Shift') || Game.isButtonDown('z')) && (this.availableJumps != 0 || this.jumpKeyTime != 0)) {
             if (this.jumpKeyTime == 0) {
                 this.availableJumps--;
                 if (this.availableJumps == 1) AudioManager.play("jump1", "assets/sounds/jump1.wav");

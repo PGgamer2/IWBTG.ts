@@ -17,7 +17,7 @@ export default class Game {
         Game.canvas = document.getElementById("main-canvas") as HTMLCanvasElement;
         // Resize keeping aspect ratio
         let pageAspectRatio = document.body.offsetWidth / document.body.offsetHeight;
-        let scale = 25 / 19 < pageAspectRatio ? document.body.offsetHeight / 19 : document.body.offsetWidth / 25;
+        let scale = Math.floor(25 / 19 < pageAspectRatio ? document.body.offsetHeight / 19 : document.body.offsetWidth / 25);
         Game.canvas.width = scale * 25;
         Game.canvas.height = scale * 19;
         // Get context and clear
