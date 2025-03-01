@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "npx webpack"
+  },
+  "dependencies": {
+    "ts-loader": "^9.5.2",
+    "webpack": "^5.98.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1"
+  }
+}
