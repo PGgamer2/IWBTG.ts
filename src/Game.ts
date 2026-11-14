@@ -18,6 +18,8 @@ export default class Game {
         // Resize keeping aspect ratio
         let pageAspectRatio = document.body.offsetWidth / document.body.offsetHeight;
         let scale = Math.floor(25 / 19 < pageAspectRatio ? document.body.offsetHeight / 19 : document.body.offsetWidth / 25);
+		if ((document.getElementById("discrete-scale-checkbox") as HTMLInputElement).checked)
+			scale = Math.max(1 << (31 - Math.clz32(scale)), 1);	// Set scale to a power of two
         Game.canvas.width = scale * 25;
         Game.canvas.height = scale * 19;
         // Get context and clear
