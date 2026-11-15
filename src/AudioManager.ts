@@ -3,18 +3,23 @@ export default class AudioManager {
 
     public static play(key: string, src: string | undefined = undefined, loop: boolean = false, volume: number = 1.0): HTMLAudioElement {
         let audio: HTMLAudioElement | undefined = AudioManager.audioMap.get(key);
-        if (audio === undefined) {
-            if (src === undefined) audio = new Audio();
-            else audio = new Audio(src);
-            audio.loop = loop;
-            audio.volume = volume;
-            AudioManager.audioMap.set(key, audio);
+        if (audio !== undefined) {
+            audio.play();
+            return audio;
         }
-        audio.play().catch(err => {
-            console.warn(err);
-            audio.setAttribute('muted', '');
-            audio.muted = true;
-        });
+        if (src === undefined) audio = new Audio();
+        else audio = new Audio(src);
+        audio.loop = loop;
+        audio.volume = volume;
+        AudioManager.audioMap.set(key, audio);
+        audio.oncanplay = e => {
+            audio!.play().catch(err => {
+                console.warn(err);
+                audio!.setAttribute('muted', '');
+                audio!.muted = true;
+            });
+            audio!.oncanplay = null;
+        }
         return audio;
     }
 
