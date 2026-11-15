@@ -44,13 +44,10 @@ export default abstract class BasicLevel {
             const points: Vector[] = this.objects[i].polygon.points;
             ctx.beginPath();
             ctx.moveTo(this.objects[i].polygon.pos.x + points[0].x, this.objects[i].polygon.pos.y + points[0].y);
-            for (let p = 0; p < points.length; p++) {
-                if (p + 1 == points.length) {
-                    ctx.lineTo(this.objects[i].polygon.pos.x + points[0].x, this.objects[i].polygon.pos.y + points[0].y);
-                } else {
-                    ctx.lineTo(this.objects[i].polygon.pos.x + points[p + 1].x, this.objects[i].polygon.pos.y + points[p + 1].y);
-                }
+            for (let p = 1; p < points.length; p++) {
+                ctx.lineTo(this.objects[i].polygon.pos.x + points[p].x, this.objects[i].polygon.pos.y + points[p].y);
             }
+            ctx.lineTo(this.objects[i].polygon.pos.x + points[0].x, this.objects[i].polygon.pos.y + points[0].y);
             ctx.lineWidth = 1;
             ctx.strokeStyle = this.objects[i].collision ? '#ff0000' : '#0000ff';
             ctx.stroke();
