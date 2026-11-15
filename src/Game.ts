@@ -23,7 +23,7 @@ export default class Game {
         Game.canvas.width = scale * 25;
         Game.canvas.height = scale * 19;
         // Get context and clear
-        let ctx = Game.canvas.getContext("2d");
+        let ctx = Game.canvas.getContext("2d")!;
         ctx.imageSmoothingEnabled = false;
         ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
 
@@ -48,6 +48,6 @@ export default class Game {
 
     public static isButtonDown(keyName: string): boolean {
         if (keyName.length == 1) keyName = keyName.toLowerCase();
-        return Game.keyMap.has(keyName) && Game.keyMap.get(keyName);
+        return Game.keyMap.get(keyName) ?? false;
     }
 }

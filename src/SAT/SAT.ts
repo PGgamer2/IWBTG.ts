@@ -124,11 +124,11 @@ export default class SAT {
    * @return {boolean} true if it is a separating axis, false otherwise.  If false, and a response is passed in, information about how much overlap and the direction of the overlap will be populated.
    */
   public static isSeparatingAxis(aPos: Vector, bPos: Vector, aPoints: Array<Vector>, bPoints: Array<Vector>, axis: Vector, response?: Response): boolean {
-    const rangeA = T_ARRAYS.pop();
-    const rangeB = T_ARRAYS.pop();
+    const rangeA = T_ARRAYS.pop()!;
+    const rangeB = T_ARRAYS.pop()!;
   
     // The magnitude of the offset between the two polygons
-    const offsetV = T_VECTORS.pop().copy(bPos).sub(aPos);
+    const offsetV = T_VECTORS.pop()!.copy(bPos).sub(aPos);
     const projectedOffset = offsetV.dot(axis);
   
     // Project the polygons onto the axis.
@@ -219,7 +219,7 @@ export default class SAT {
    * @returns {boolean} Returns true if the point is inside the circle or false otherwise.
    */
   public static pointInCircle(p: Vector, c: Circle): boolean {
-    const differenceV = T_VECTORS.pop().copy(p).sub(c.pos).sub(c.offset);
+    const differenceV = T_VECTORS.pop()!.copy(p).sub(c.pos).sub(c.offset);
 
     const radiusSq = c.r * c.r;
     const distanceSq = differenceV.len2();
@@ -260,7 +260,7 @@ export default class SAT {
    */
   public static testCircleCircle(a: Circle, b: Circle, response?: Response): boolean {
     // Check if the distance between the centers of the two circles is greater than their combined radius.
-    const differenceV = T_VECTORS.pop().copy(b.pos).add(b.offset).sub(a.pos).sub(a.offset);
+    const differenceV = T_VECTORS.pop()!.copy(b.pos).add(b.offset).sub(a.pos).sub(a.offset);
 
     const totalRadius = a.r + b.r;
     const totalRadiusSq = totalRadius * totalRadius;
@@ -304,7 +304,7 @@ export default class SAT {
    */
   public static testPolygonCircle(polygon: Polygon, circle: Circle, response?: Response): boolean {
     // Get the position of the circle relative to the polygon.
-    const circlePos = T_VECTORS.pop().copy(circle.pos).add(circle.offset).sub(polygon.pos);
+    const circlePos = T_VECTORS.pop()!.copy(circle.pos).add(circle.offset).sub(polygon.pos);
 
     const radius = circle.r;
     const radius2 = radius * radius;
@@ -312,8 +312,8 @@ export default class SAT {
     const points = polygon.calcPoints;
     const len = points.length;
 
-    const edge = T_VECTORS.pop();
-    const point = T_VECTORS.pop();
+    const edge = T_VECTORS.pop()!;
+    const point = T_VECTORS.pop()!;
 
     // For each edge in the polygon:
     for (var i = 0; i < len; i++) {
@@ -341,7 +341,7 @@ export default class SAT {
         edge.copy(polygon.edges[prev]);
 
         // Calculate the center of the circle relative the starting point of the previous edge
-        const point2 = T_VECTORS.pop().copy(circlePos).sub(points[prev]);
+        const point2 = T_VECTORS.pop()!.copy(circlePos).sub(points[prev]);
 
         region = voronoiRegion(edge, point2);
 

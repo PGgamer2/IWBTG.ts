@@ -41,6 +41,7 @@ export default class SpikeObject extends ImageObject {
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
+        if (this.image === undefined) return;
         ctx.drawImage(this.image, this.direction * 32, 0, 32, 32, this.polygon.pos.x, this.polygon.pos.y, 32, 32);
     }
 }

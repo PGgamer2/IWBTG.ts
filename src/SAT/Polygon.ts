@@ -15,10 +15,10 @@ export default class Polygon {
   public pos: Vector;
   public angle: number = 0;
   public offset: Vector = new Vector();
-  public points: Array<Vector>;
-  public calcPoints: Array<Vector>;
-  public edges: Array<Vector>;
-  public normals: Array<Vector>;
+  public points: Array<Vector> = [];
+  public calcPoints: Array<Vector> = [];
+  public edges: Array<Vector> = [];
+  public normals: Array<Vector> = [];
 
   /**
    * Create a new polygon, passing in a position vector, and an array of points (represented by vectors 

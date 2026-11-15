@@ -79,6 +79,7 @@ export default class GibParticle extends ImageObject {
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
+        if (this.image === undefined) return;
         switch(this.type) {
         case 0:
             ctx.drawImage(this.image, this.bodyVariant * 2, 0, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);

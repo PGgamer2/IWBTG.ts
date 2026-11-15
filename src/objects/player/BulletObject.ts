@@ -27,6 +27,7 @@ export default class BulletObject extends ImageObject {
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
         this.frameTime += delta;
         while (this.frameTime >= 0.20) this.frameTime -= 0.20;
+        if (this.image === undefined) return;
         ctx.drawImage(this.image, Math.floor(this.frameTime / 0.10) * 4, 0, 4, 4, this.polygon.pos.x + 3, this.polygon.pos.y - 1, 4, 4);
     }
 }

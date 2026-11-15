@@ -35,7 +35,7 @@ export default abstract class BasicLevel {
     }
 
     public isRemoved(id: string): boolean {
-        return this.removeQueue.includes(id);
+        return this.removeQueue.indexOf(id) !== -1;
     }
 
     protected drawCollisionLines(ctx: CanvasRenderingContext2D): void {

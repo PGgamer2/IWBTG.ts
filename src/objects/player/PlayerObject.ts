@@ -118,6 +118,7 @@ export default class PlayerObject extends ImageObject {
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
         this.frameTime += delta;
         while (this.frameTime >= 0.40) this.frameTime -= 0.40;
+        if (this.image === undefined) return;
         let frame: number = Math.floor(this.frameTime / 0.10);
 
         ctx.save();

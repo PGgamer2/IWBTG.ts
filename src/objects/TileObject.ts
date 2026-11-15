@@ -6,9 +6,9 @@ export default class TileObject extends ImageObject {
     public order: number[] = new Array(0);
 
     constructor(id: string, x: number, y: number, w: number, h: number, sources: string[], order?: number[]) {
-        super(id, x * 32, y * 32, w * 32, h * 32, sources.shift());
-        this.image.width = 32;
-        this.image.height = 32;
+        super(id, x * 32, y * 32, w * 32, h * 32, sources.shift()!);
+        this.image!.width = 32;
+        this.image!.height = 32;
         this.totalW = w;
         this.totalH = h;
         this.otherImages = sources.map(src => {
@@ -20,6 +20,7 @@ export default class TileObject extends ImageObject {
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
+        if (this.image === undefined) return;
         ctx.drawImage(this.image, this.polygon.pos.x, this.polygon.pos.y, 32, 32);
         for (let i = 1; i < this.totalW * this.totalH; i++) {
             ctx.drawImage(i < this.order.length ? this.otherImages[this.order[i]] : this.image,
@@ -30,7 +31,7 @@ export default class TileObject extends ImageObject {
     public dispose(): void {
         super.dispose();
         while(this.otherImages.length != 0) {
-            this.otherImages.shift().remove();
+            this.otherImages.shift()?.remove();
         }
     }
 }
