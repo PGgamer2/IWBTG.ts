@@ -3,7 +3,7 @@ import TestLevel from './levels/TestLevel';
 import Camera from './Camera';
 export default class Game {
     public static DEBUG: boolean = false;
-    public static canvas: HTMLCanvasElement;
+    public static canvas: HTMLCanvasElement = document.getElementById("main-canvas") as HTMLCanvasElement;
     public static lastTimestamp: DOMHighResTimeStamp = performance.now();
 
     public static level: BasicLevel = new TestLevel();
@@ -14,7 +14,6 @@ export default class Game {
 
     public static update(timestamp: DOMHighResTimeStamp) {
         Game.DEBUG = Game.isButtonDown("F2");
-        Game.canvas = document.getElementById("main-canvas") as HTMLCanvasElement;
         // Resize keeping aspect ratio
         let pageAspectRatio = document.body.offsetWidth / document.body.offsetHeight;
         let scale = Math.floor(25 / 19 < pageAspectRatio ? document.body.offsetHeight / 19 : document.body.offsetWidth / 25);
