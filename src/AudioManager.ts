@@ -1,7 +1,7 @@
 export default class AudioManager {
     public static audioMap: Map<string, HTMLAudioElement> = new Map();
 
-    public static play(key: string, src: string | undefined = undefined, loop: boolean = false, volume: number = 1.0): HTMLAudioElement {
+    public static play(key: string, src?: string, loop: boolean = false, volume: number = 1.0): HTMLAudioElement {
         let audio: HTMLAudioElement | undefined = AudioManager.audioMap.get(key);
         if (audio !== undefined) {
             audio.play();
