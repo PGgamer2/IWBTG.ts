@@ -2,13 +2,14 @@ import Polygon from '../SAT/Polygon';
 import Response from '../SAT/Response';
 import Vector from '../SAT/Vector';
 import BasicObject from './BasicObject';
-import ImageObject from './ImageObject';
+import SpriteObject from './SpriteObject';
 import PlayerObject from './player/PlayerObject';
-export default class SpikeObject extends ImageObject {
+import { Sprites } from '../SpriteManager';
+export default class SpikeObject extends SpriteObject {
     public readonly direction: number;
 
     constructor(id: string, x: number, y: number, direction: number) {
-        super(id, x, y, 32, 32, "assets/textures/objects/sprSpike.png");
+        super(id, x, y, 32, 32, direction == 0 ? Sprites.SpikeUp : direction == 1 ? Sprites.SpikeRight : direction == 2 ? Sprites.SpikeDown : Sprites.SpikeLeft);
         this.direction = direction;
         switch(this.direction) {
         case 3:
@@ -38,10 +39,5 @@ export default class SpikeObject extends ImageObject {
             (obj as PlayerObject).die();
         }
         return false;
-    }
-
-    public draw(ctx: CanvasRenderingContext2D, delta: number): void {
-        if (this.image === undefined) return;
-        ctx.drawImage(this.image, this.direction * 32, 0, 32, 32, this.polygon.pos.x, this.polygon.pos.y, 32, 32);
     }
 }

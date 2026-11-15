@@ -1,5 +1,5 @@
 import Game from '../../Game';
-import ImageObject from '../ImageObject';
+import BasicObject from '../BasicObject';
 import BulletObject from './BulletObject';
 import { randomUnsecureUUID, bufferDrawImage } from '../../Utils';
 import Vector from '../../SAT/Vector';
@@ -8,7 +8,8 @@ import GibParticle from './GibParticle';
 import DeathMessage from './DeathMessage';
 import AudioManager from '../../AudioManager';
 import Polygon from '../../SAT/Polygon';
-export default class PlayerObject extends ImageObject {
+import { ImageList } from '../../SpriteManager';
+export default class PlayerObject extends BasicObject {
     public static readonly velocity: number = 175;
     public static readonly gravity: number = 24;
 
@@ -26,7 +27,7 @@ export default class PlayerObject extends ImageObject {
     public availableJumps: number = 0;
 
     constructor(x: number, y: number, id: string = "player") {
-        super(id, x, y, 32, 32, "assets/textures/objects/player/sprPlayer.png");
+        super(id, x, y, 32, 32);
         this.polygon = new Polygon(new Vector(x, y), [
             new Vector(9, 11), new Vector(9, 32),
             new Vector(23, 32), new Vector(23, 11)
@@ -118,7 +119,6 @@ export default class PlayerObject extends ImageObject {
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
         this.frameTime += delta;
         while (this.frameTime >= 0.40) this.frameTime -= 0.40;
-        if (this.image === undefined) return;
         let frame: number = Math.floor(this.frameTime / 0.10);
 
         ctx.save();
@@ -133,21 +133,21 @@ export default class PlayerObject extends ImageObject {
         if (this.dy < 0) {
             // Jumping
             if (this.jumpKeyTime != 0 && this.jumpKeyTime < 0.02) {
-                ctx.drawImage(bufferDrawImage(this.image, 0, 64, 32, 32), 0, 0, 32, 32);
+                ctx.drawImage(bufferDrawImage(ImageList.PLAYER, 0, 64, 32, 32), 0, 0, 32, 32);
             } else if (this.jumpKeyTime != 0 && this.jumpKeyTime < 0.04) {
-                ctx.drawImage(bufferDrawImage(this.image, 32, 64, 32, 32), 0, 0, 32, 32);
+                ctx.drawImage(bufferDrawImage(ImageList.PLAYER, 32, 64, 32, 32), 0, 0, 32, 32);
             } else {
-                ctx.drawImage(bufferDrawImage(this.image, (frame % 2) * 32 + 64, 64, 32, 32), 0, 0, 32, 32);
+                ctx.drawImage(bufferDrawImage(ImageList.PLAYER, (frame % 2) * 32 + 64, 64, 32, 32), 0, 0, 32, 32);
             }
         } else if (!this.onGround) {
             // Falling
-            ctx.drawImage(bufferDrawImage(this.image, (frame % 2) * 32, 96, 32, 32), 0, 0, 32, 32);
+            ctx.drawImage(bufferDrawImage(ImageList.PLAYER, (frame % 2) * 32, 96, 32, 32), 0, 0, 32, 32);
         } else if (this.dx != 0) {
             // Running
-            ctx.drawImage(bufferDrawImage(this.image, frame * 32, 32, 32, 32), 0, 0, 32, 32);
+            ctx.drawImage(bufferDrawImage(ImageList.PLAYER, frame * 32, 32, 32, 32), 0, 0, 32, 32);
         } else {
             // Idle
-            ctx.drawImage(bufferDrawImage(this.image, frame * 32, 0, 32, 32), 0, 0, 32, 32);
+            ctx.drawImage(bufferDrawImage(ImageList.PLAYER, frame * 32, 0, 32, 32), 0, 0, 32, 32);
         }
         ctx.restore();
     }

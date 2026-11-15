@@ -1,15 +1,15 @@
-import ImageObject from '../ImageObject';
 import PlayerObject from './PlayerObject';
 import Response from '../../SAT/Response';
 import BasicObject from '../BasicObject';
 import Game from '../../Game';
 import SpikeObject from '../SpikeObject';
-export default class BulletObject extends ImageObject {
+import { ImageList } from '../../SpriteManager';
+export default class BulletObject extends BasicObject {
     protected frameTime: number = 0;
     protected direction: number;
 
     constructor(x: number, y: number, direction: number, id: string) {
-        super(id, x - 5, y - 1, 10, 2, "assets/textures/objects/player/sprBullet.png");
+        super(id, x - 5, y - 1, 10, 2);
         this.direction = direction;
     }
 
@@ -27,7 +27,6 @@ export default class BulletObject extends ImageObject {
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
         this.frameTime += delta;
         while (this.frameTime >= 0.20) this.frameTime -= 0.20;
-        if (this.image === undefined) return;
-        ctx.drawImage(this.image, Math.floor(this.frameTime / 0.10) * 4, 0, 4, 4, this.polygon.pos.x + 3, this.polygon.pos.y - 1, 4, 4);
+        ctx.drawImage(ImageList.BULLET, Math.floor(this.frameTime / 0.10) * 4, 0, 4, 4, this.polygon.pos.x + 3, this.polygon.pos.y - 1, 4, 4);
     }
 }

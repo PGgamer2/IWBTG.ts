@@ -1,13 +1,13 @@
 import Response from '../../SAT/Response';
 import SAT from '../../SAT/SAT';
-import ImageObject from '../ImageObject';
 import PlayerObject from './PlayerObject';
 import Game from '../../Game';
 import BasicObject from '../BasicObject';
 import SpikeObject from '../SpikeObject';
 import Polygon from '../../SAT/Polygon';
 import Vector from '../../SAT/Vector';
-export default class GibParticle extends ImageObject {
+import { ImageList } from '../../SpriteManager';
+export default class GibParticle extends BasicObject {
     public dx: number = 0;
     public dy: number = 0;
     public type: number = 0;
@@ -24,7 +24,7 @@ export default class GibParticle extends ImageObject {
      * type 7: feet stoned
      */
     constructor(x: number, y: number, dx: number, dy: number, type: number, id: string) {
-        super(id, x, y, 8, 8, "assets/textures/objects/player/sprGibs.png");
+        super(id, x, y, 8, 8);
         this.dx = dx;
         this.dy = dy;
         this.type = type;
@@ -79,31 +79,30 @@ export default class GibParticle extends ImageObject {
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
-        if (this.image === undefined) return;
         switch(this.type) {
         case 0:
-            ctx.drawImage(this.image, this.bodyVariant * 2, 0, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
+            ctx.drawImage(ImageList.GIBS, this.bodyVariant * 2, 0, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
             break;
         case 1:
-            ctx.drawImage(this.image, this.bodyVariant * 2, 9, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
+            ctx.drawImage(ImageList.GIBS, this.bodyVariant * 2, 9, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
             break;
         case 2:
-            ctx.drawImage(this.image, 0, 18, 10, 16, this.polygon.pos.x, this.polygon.pos.y, 10, 16);
+            ctx.drawImage(ImageList.GIBS, 0, 18, 10, 16, this.polygon.pos.x, this.polygon.pos.y, 10, 16);
             break;
         case 3:
-            ctx.drawImage(this.image, 10, 18, 10, 16, this.polygon.pos.x, this.polygon.pos.y, 10, 16);
+            ctx.drawImage(ImageList.GIBS, 10, 18, 10, 16, this.polygon.pos.x, this.polygon.pos.y, 10, 16);
             break;
         case 4:
-            ctx.drawImage(this.image, 20, 18, 8, 8, this.polygon.pos.x, this.polygon.pos.y, 8, 8);
+            ctx.drawImage(ImageList.GIBS, 20, 18, 8, 8, this.polygon.pos.x, this.polygon.pos.y, 8, 8);
             break;
         case 5:
-            ctx.drawImage(this.image, 28, 18, 8, 8, this.polygon.pos.x, this.polygon.pos.y, 8, 8);
+            ctx.drawImage(ImageList.GIBS, 28, 18, 8, 8, this.polygon.pos.x, this.polygon.pos.y, 8, 8);
             break;
         case 6:
-            ctx.drawImage(this.image, 36, 18, 4, 4, this.polygon.pos.x + 2, this.polygon.pos.y + 4, 4, 4);
+            ctx.drawImage(ImageList.GIBS, 36, 18, 4, 4, this.polygon.pos.x + 2, this.polygon.pos.y + 4, 4, 4);
             break;
         case 7:
-            ctx.drawImage(this.image, 36, 22, 4, 4, this.polygon.pos.x + 2, this.polygon.pos.y + 4, 4, 4);
+            ctx.drawImage(ImageList.GIBS, 36, 22, 4, 4, this.polygon.pos.x + 2, this.polygon.pos.y + 4, 4, 4);
         }
     }
 }

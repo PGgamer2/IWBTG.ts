@@ -1,19 +1,19 @@
 import Response from '../../SAT/Response';
 import SAT from '../../SAT/SAT';
-import ImageObject from '../ImageObject';
 import PlayerObject from './PlayerObject';
 import Game from '../../Game';
 import BasicObject from '../BasicObject';
 import SpikeObject from '../SpikeObject';
 import Vector from '../../SAT/Vector';
-export default class BloodParticle extends ImageObject {
+import { ImageList } from '../../SpriteManager';
+export default class BloodParticle extends BasicObject {
     public dx: number = 0;
     public dy: number = 0;
     public stuck: boolean = false;
     public type: number = 0;
     
     constructor(x: number, y: number, dx: number, dy: number, id: string) {
-        super(id, x, y, 2, 2, "assets/textures/objects/player/sprBlood.png");
+        super(id, x, y, 2, 2);
         this.dx = dx;
         this.dy = dy;
         this.type = Math.round(Math.random() * 3);
@@ -64,7 +64,6 @@ export default class BloodParticle extends ImageObject {
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
-        if (this.image === undefined) return;
-        ctx.drawImage(this.image, this.type * 3, 0, 3, 4, this.polygon.pos.x - 1, this.polygon.pos.y - 1, 3, 4);
+        ctx.drawImage(ImageList.BLOOD, this.type * 3, 0, 3, 4, this.polygon.pos.x - 1, this.polygon.pos.y - 1, 3, 4);
     }
 }
