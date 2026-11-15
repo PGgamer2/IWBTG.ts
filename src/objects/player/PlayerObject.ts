@@ -1,7 +1,7 @@
 import Game from '../../Game';
 import ImageObject from '../ImageObject';
 import BulletObject from './BulletObject';
-import { randomUnsecureUUID } from '../../Utils';
+import { randomUnsecureUUID, bufferDrawImage } from '../../Utils';
 import Vector from '../../SAT/Vector';
 import BloodParticle from './BloodParticle';
 import GibParticle from './GibParticle';
@@ -133,21 +133,21 @@ export default class PlayerObject extends ImageObject {
         if (this.dy < 0) {
             // Jumping
             if (this.jumpKeyTime != 0 && this.jumpKeyTime < 0.02) {
-                ctx.drawImage(this.image, 0, 64, 32, 32, 0, 0, 32, 32);
+                ctx.drawImage(bufferDrawImage(this.image, 0, 64, 32, 32), 0, 0, 32, 32);
             } else if (this.jumpKeyTime != 0 && this.jumpKeyTime < 0.04) {
-                ctx.drawImage(this.image, 32, 64, 32, 32, 0, 0, 32, 32);
+                ctx.drawImage(bufferDrawImage(this.image, 32, 64, 32, 32), 0, 0, 32, 32);
             } else {
-                ctx.drawImage(this.image, (frame % 2) * 32 + 64, 64, 32, 32, 0, 0, 32, 32);
+                ctx.drawImage(bufferDrawImage(this.image, (frame % 2) * 32 + 64, 64, 32, 32), 0, 0, 32, 32);
             }
         } else if (!this.onGround) {
             // Falling
-            ctx.drawImage(this.image, (frame % 2) * 32, 96, 32, 32, 0, 0, 32, 32);
+            ctx.drawImage(bufferDrawImage(this.image, (frame % 2) * 32, 96, 32, 32), 0, 0, 32, 32);
         } else if (this.dx != 0) {
             // Running
-            ctx.drawImage(this.image, frame * 32, 32, 32, 32, 0, 0, 32, 32);
+            ctx.drawImage(bufferDrawImage(this.image, frame * 32, 32, 32, 32), 0, 0, 32, 32);
         } else {
             // Idle
-            ctx.drawImage(this.image, frame * 32, 0, 32, 32, 0, 0, 32, 32);
+            ctx.drawImage(bufferDrawImage(this.image, frame * 32, 0, 32, 32), 0, 0, 32, 32);
         }
         ctx.restore();
     }
