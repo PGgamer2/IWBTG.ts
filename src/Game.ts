@@ -1,12 +1,13 @@
 import BasicLevel from './levels/BasicLevel';
-import TestLevel from './levels/TestLevel';
 import Camera from './Camera';
+import SaveSelectMenu from './levels/SaveSelectMenu';
+import TestLevel from './levels/TestLevel';
 export default class Game {
     public static DEBUG: boolean = false;
     public static canvas: HTMLCanvasElement = document.getElementById("main-canvas") as HTMLCanvasElement;
     public static lastTimestamp: DOMHighResTimeStamp = performance.now();
 
-    public static level: BasicLevel = new TestLevel();
+    public static level: BasicLevel = new SaveSelectMenu();
     public static camera: Camera = new Camera();
 
     public static keyMap: Map<string, boolean> = new Map<string, boolean>();
@@ -43,6 +44,11 @@ export default class Game {
         } else Game.isPushingReload = false;
         
         Game.lastTimestamp = timestamp;
+    }
+
+    public static loadSave(save: number): void {
+        this.level.dispose();
+        this.level = new TestLevel(); //TODO
     }
 
     public static isButtonDown(keyName: string): boolean {
