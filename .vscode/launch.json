@@ -2,15 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "npx webpack",
             "name": "Compile TS",
             "request": "launch",
+            "command": "npx webpack",
             "type": "node-terminal"
         },
         {
-            "name": "Launch Chrome",
+            "name": "Build and run",
             "request": "launch",
-            "type": "pwa-chrome",
+            "preLaunchTask": "npm: build",
+            "type": "msedge",
             "url": "${workspaceFolder}/index.html",
             "webRoot": "${workspaceFolder}"
         }
