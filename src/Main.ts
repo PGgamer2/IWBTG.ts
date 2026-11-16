@@ -9,7 +9,8 @@ import AudioManager from "./AudioManager";
 import Game from "./Game";
 
 function frame(timestamp: DOMHighResTimeStamp) {
-    Game.update(timestamp);
+    if (!document.hidden)
+        Game.update(timestamp);
     window.requestAnimationFrame(frame);
 }
 window.requestAnimationFrame(frame);
