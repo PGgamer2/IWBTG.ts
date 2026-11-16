@@ -4,25 +4,30 @@ import Vector from '../SAT/Vector';
 import BasicObject from './BasicObject';
 import SpriteObject from './SpriteObject';
 import PlayerObject from './player/PlayerObject';
-import { Sprites } from '../SpriteManager';
-export default class SpikeObject extends SpriteObject {
-    public readonly direction: number;
+import { Sprite, Sprites } from '../SpriteManager';
 
-    constructor(id: string, x: number, y: number, direction: number) {
-        super(id, x, y, 32, 32, direction == 0 ? Sprites.SpikeUp : direction == 1 ? Sprites.SpikeRight : direction == 2 ? Sprites.SpikeDown : Sprites.SpikeLeft);
+export const enum SpikeDirection {
+    Up, Right, Down, Left
+}
+
+export default class SpikeObject extends SpriteObject {
+    public readonly direction: SpikeDirection;
+
+    constructor(id: string, x: number, y: number, direction: SpikeDirection = 0) {
+        super(id, x, y, 32, 32, SpikeObject.getDirSprite(direction));
         this.direction = direction;
         switch(this.direction) {
-        case 3:
+        case SpikeDirection.Left:
             this.polygon = new Polygon(new Vector(x, y), [
                 new Vector(1, 16), new Vector(31, 31), new Vector(31, 1)
             ]);
             break;
-        case 2:
+        case SpikeDirection.Down:
             this.polygon = new Polygon(new Vector(x, y), [
                 new Vector(1, 1), new Vector(16, 31), new Vector(31, 1)
             ]);
             break;
-        case 1:
+        case SpikeDirection.Right:
             this.polygon = new Polygon(new Vector(x, y), [
                 new Vector(1, 1), new Vector(1, 31), new Vector(31, 16)
             ]);
@@ -39,5 +44,10 @@ export default class SpikeObject extends SpriteObject {
             (obj as PlayerObject).die();
         }
         return false;
+    }
+
+    public static getDirSprite(dir: SpikeDirection): Sprite {
+        const spikeDirSprites: Sprite[] = [Sprites.SpikeUp, Sprites.SpikeRight, Sprites.SpikeDown, Sprites.SpikeLeft];
+        return spikeDirSprites[dir];
     }
 }
