@@ -12,8 +12,7 @@ export class ImageList {
     public static SPIKE: HTMLImageElement = ImageList.register("assets/textures/objects/sprSpike.png");
 
     public static PLAYER: HTMLImageElement = ImageList.register("assets/textures/objects/player/sprPlayer.png");
-    public static GIBS: HTMLImageElement = ImageList.register("assets/textures/objects/player/sprGibs.png");
-    public static BLOOD: HTMLImageElement = ImageList.register("assets/textures/objects/player/sprBlood.png");
+    public static GORE: HTMLImageElement = ImageList.register("assets/textures/objects/player/sprGore.png");
     public static BULLET: HTMLImageElement = ImageList.register("assets/textures/objects/player/sprBullet.png");
 
     public static GAMEOVER: HTMLImageElement = ImageList.register("assets/textures/ui/sprGameOver.png");

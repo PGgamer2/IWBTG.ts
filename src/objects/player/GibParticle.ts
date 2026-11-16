@@ -81,28 +81,28 @@ export default class GibParticle extends BasicObject {
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
         switch(this.type) {
         case 0:
-            ctx.drawImage(ImageList.GIBS, this.bodyVariant * 2, 0, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
+            ctx.drawImage(ImageList.GORE, this.bodyVariant * 2, 0, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
             break;
         case 1:
-            ctx.drawImage(ImageList.GIBS, this.bodyVariant * 2, 9, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
+            ctx.drawImage(ImageList.GORE, this.bodyVariant * 2, 9, 2, 9, this.polygon.pos.x + 4, this.polygon.pos.y, 2, 9);
             break;
         case 2:
-            ctx.drawImage(ImageList.GIBS, 0, 18, 10, 16, this.polygon.pos.x, this.polygon.pos.y, 10, 16);
+            ctx.drawImage(ImageList.GORE, 0, 18, 10, 16, this.polygon.pos.x, this.polygon.pos.y, 10, 16);
             break;
         case 3:
-            ctx.drawImage(ImageList.GIBS, 10, 18, 10, 16, this.polygon.pos.x, this.polygon.pos.y, 10, 16);
+            ctx.drawImage(ImageList.GORE, 10, 18, 10, 16, this.polygon.pos.x, this.polygon.pos.y, 10, 16);
             break;
         case 4:
-            ctx.drawImage(ImageList.GIBS, 20, 18, 8, 8, this.polygon.pos.x, this.polygon.pos.y, 8, 8);
+            ctx.drawImage(ImageList.GORE, 20, 18, 8, 8, this.polygon.pos.x, this.polygon.pos.y, 8, 8);
             break;
         case 5:
-            ctx.drawImage(ImageList.GIBS, 28, 18, 8, 8, this.polygon.pos.x, this.polygon.pos.y, 8, 8);
+            ctx.drawImage(ImageList.GORE, 28, 18, 8, 8, this.polygon.pos.x, this.polygon.pos.y, 8, 8);
             break;
         case 6:
-            ctx.drawImage(ImageList.GIBS, 36, 18, 4, 4, this.polygon.pos.x + 2, this.polygon.pos.y + 4, 4, 4);
+            ctx.drawImage(ImageList.GORE, 36, 18, 4, 4, this.polygon.pos.x + 2, this.polygon.pos.y + 4, 4, 4);
             break;
         case 7:
-            ctx.drawImage(ImageList.GIBS, 36, 22, 4, 4, this.polygon.pos.x + 2, this.polygon.pos.y + 4, 4, 4);
+            ctx.drawImage(ImageList.GORE, 36, 22, 4, 4, this.polygon.pos.x + 2, this.polygon.pos.y + 4, 4, 4);
         }
     }
 }

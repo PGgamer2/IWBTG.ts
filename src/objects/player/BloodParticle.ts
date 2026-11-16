@@ -64,6 +64,6 @@ export default class BloodParticle extends BasicObject {
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
-        ctx.drawImage(ImageList.BLOOD, this.type * 3, 0, 3, 4, this.polygon.pos.x - 1, this.polygon.pos.y - 1, 3, 4);
+        ctx.drawImage(ImageList.GORE, this.type * 3, 34, 3, 4, this.polygon.pos.x - 1, this.polygon.pos.y - 1, 3, 4);
     }
 }
