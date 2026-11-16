@@ -17,12 +17,16 @@ export default class SaveSelectMenu extends BasicLevel {
 
         // Trees
         for (let i = 0; i < 7; i++) {
-            this.objects.push(new SpriteObject("tree" + i, (Math.random() * 800) | 0, 369, 111, 175, Sprites.Broccoli));
+            let obj: SpriteObject = new SpriteObject("tree" + i, (Math.random() * 800) | 0, 369, 111, 175, Sprites.Broccoli);
+            obj.collision = false;
+            this.objects.push(obj);
         }
 
         // Clouds
         for (let i = 0; i < 6; i++) {
-            this.objects.push(new AnimatedSpriteObject("cloud" + i, (Math.random() * 800) | 0, (96 + Math.random() * 210) | 0, 112, 32, Sprites.Cloud, 0.5));
+            let obj: AnimatedSpriteObject = new AnimatedSpriteObject("cloud" + i, (Math.random() * 800) | 0, (96 + Math.random() * 210) | 0, 112, 32, Sprites.Cloud, 0.5);
+            obj.collision = false;
+            this.objects.push(obj);
         }
 
         // UI
