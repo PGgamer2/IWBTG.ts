@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'inline-source-map',
   module: {
     rules: [
-      { test: /\.([cm]?ts|tsx)$/, loader: "ts-loader" }
+      { test: /\.([cm]?ts|tsx)$/, loader: "esbuild-loader" }
     ],
   },
   resolve: {
