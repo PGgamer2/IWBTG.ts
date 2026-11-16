@@ -39,6 +39,9 @@ export class Sprite {
 export namespace Sprites {
     export const RedBlock: Sprite = new Sprite(ImageList.TILEMAP_MASTER, 32, 32, 32, 32);
     export const GrassRedBlock: Sprite = new Sprite(ImageList.TILEMAP_MASTER, 0, 32, 32, 32);
+    export const SimpleVBeam: Sprite = new Sprite(ImageList.TILEMAP_MASTER, 32, 64, 32, 32);
+    export const SimpleHBeam: Sprite = new Sprite(ImageList.TILEMAP_MASTER, 0, 96, 32, 32);
+    export const SimpleBlock: Sprite = new Sprite(ImageList.TILEMAP_MASTER, 32, 96, 32, 32);
 
     export const Broccoli: Sprite = new Sprite(ImageList.BROCCOLI, 0, 0, 111, 175);
     export const KraidgiefBroccoli: Sprite = new Sprite(ImageList.BROCCOLI, 112, 0, 111, 175);
