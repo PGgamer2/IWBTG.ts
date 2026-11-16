@@ -13,7 +13,7 @@ export default class PlayerObject extends BasicObject {
     public static readonly velocity: number = 175;
     public static readonly gravity: number = 24;
 
-    public frameTime: number = 0;
+    public frameTimer: number = 0;
     public lookingDirection: number = 1;
 
     public rightKeyTime: number = 0;
@@ -119,9 +119,8 @@ export default class PlayerObject extends BasicObject {
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
-        this.frameTime += delta;
-        while (this.frameTime >= 0.40) this.frameTime -= 0.40;
-        let frame: number = Math.floor(this.frameTime / 0.10);
+        this.frameTimer = (this.frameTimer + delta) % 0.40;
+        let frame: number = Math.floor(this.frameTimer / 0.10);
 
         ctx.save();
         if (this.lookingDirection == -1) {
