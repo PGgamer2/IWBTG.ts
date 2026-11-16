@@ -37,11 +37,13 @@ export class Sprite {
 }
 
 export namespace Sprites {
-    export const FallingBlock: Sprite = new Sprite(ImageList.TILEMAP_MASTER, 32, 32, 32, 32);
-    export const GrassFallingBlock: Sprite = new Sprite(ImageList.TILEMAP_MASTER, 0, 32, 32, 32);
+    export const RedBlock: Sprite = new Sprite(ImageList.TILEMAP_MASTER, 32, 32, 32, 32);
+    export const GrassRedBlock: Sprite = new Sprite(ImageList.TILEMAP_MASTER, 0, 32, 32, 32);
+
     export const Broccoli: Sprite = new Sprite(ImageList.BROCCOLI, 0, 0, 111, 175);
     export const KraidgiefBroccoli: Sprite = new Sprite(ImageList.BROCCOLI, 112, 0, 111, 175);
     export const BigBroccoli: Sprite = new Sprite(ImageList.BROCCOLI, 0, 175, 213, 331);
+    
     export const SpikeUp: Sprite = new Sprite(ImageList.SPIKE, 0, 0, 32, 32);
     export const SpikeRight: Sprite = new Sprite(ImageList.SPIKE, 32, 0, 32, 32);
     export const SpikeDown: Sprite = new Sprite(ImageList.SPIKE, 64, 0, 32, 32);

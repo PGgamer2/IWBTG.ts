@@ -10,9 +10,9 @@ export default class TestLevel extends BasicLevel {
         AudioManager.playMusic("assets/music/begins.ogg");
         
         this.objects.push(new PlayerObject(32, 512));
-        this.objects.push(new TileObject("ground0", 0, 18, 25, 1, [Sprites.FallingBlock]));
-        this.objects.push(new TileObject("wall0", 8, 14, 1, 4, [Sprites.FallingBlock]));
-        this.objects.push(new TileObject("wall1", 9, 12, 1, 6, [Sprites.FallingBlock]));
+        this.objects.push(new TileObject("ground0", 0, 18, 25, 1, [Sprites.RedBlock]));
+        this.objects.push(new TileObject("wall0", 8, 14, 1, 4, [Sprites.RedBlock]));
+        this.objects.push(new TileObject("wall1", 9, 12, 1, 6, [Sprites.RedBlock]));
 
         this.objects.push(new SpikeObject("spike0", 320, 416, 1));
         this.objects.push(new SpikeObject("spike1", 320, 384, 1));

@@ -12,8 +12,8 @@ export default class SaveSelectMenu extends BasicLevel {
         super();
         AudioManager.playMusic("assets/music/saveselect.ogg");
 
-        this.objects.push(new TileObject("grass", 0, 17, 26, 1, [Sprites.GrassFallingBlock]));
-        this.objects.push(new TileObject("ground", 0, 18, 26, 1, [Sprites.FallingBlock]));
+        this.objects.push(new TileObject("grass", 0, 17, 26, 1, [Sprites.GrassRedBlock]));
+        this.objects.push(new TileObject("ground", 0, 18, 26, 1, [Sprites.RedBlock]));
 
         // Trees
         for (let i = 0; i < 7; i++) {
