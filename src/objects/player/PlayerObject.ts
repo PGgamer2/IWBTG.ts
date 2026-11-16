@@ -52,16 +52,8 @@ export default class PlayerObject extends BasicObject {
         } else this.leftKeyTime = 0;
 
         if (Game.isButtonDown('x')) {
-            if (this.shootKeyTime == 0) {
-                let bulletId: string = "bullet" + randomUnsecureUUID();
-                AudioManager.play(bulletId, "assets/sounds/fire.wav").onended = e => { AudioManager.release(bulletId); };
-                Game.level.objects.push(
-                    new BulletObject(this.polygon.pos.x + 16 + 10 * this.lookingDirection, this.polygon.pos.y + 21,
-                        this.lookingDirection, bulletId
-                    )
-                );
-            }
-            this.shootKeyTime++;
+            if (this.shootKeyTime++ == 0)
+                this.shoot();
         } else this.shootKeyTime = 0;
 
         if ((Game.isButtonDown('Shift') || Game.isButtonDown('z')) && (this.availableJumps != 0 || this.jumpKeyTime != 0)) {
@@ -92,6 +84,16 @@ export default class PlayerObject extends BasicObject {
         if (!this.onGround && this.availableJumps > 1) this.availableJumps = 1; 
     }
 
+    public shoot(): void {
+        let bulletId: string = "bullet" + randomUnsecureUUID();
+        AudioManager.play(bulletId, "assets/sounds/fire.wav").onended = e => { AudioManager.release(bulletId); };
+        Game.level.objects.push(
+            new BulletObject(this.polygon.pos.x + 16 + 10 * this.lookingDirection, this.polygon.pos.y + 21,
+                this.lookingDirection, bulletId
+            )
+        );
+    }
+
     public die(): void {
         if (Game.level.isRemoved(this.id)) return;
         Game.level.removeObject(this.id);
@@ -99,7 +101,7 @@ export default class PlayerObject extends BasicObject {
         for (let i = 0; i < 128; i++) {
             Game.level.objects.push(new BloodParticle(center.x, center.y,
                     Math.cos(Math.PI * 2 / 48 * i) * Math.random() * 6, Math.sin(Math.PI * 2 / 48 * i) * Math.random() * 10,
-                    "blood" + randomUnsecureUUID()
+                    "blood_" + this.id + "_" + i
                 )
             );
         }
@@ -107,7 +109,7 @@ export default class PlayerObject extends BasicObject {
             for (let o = 0; o < (i > 3 ? 2 : 1); o++) {
                 Game.level.objects.push(new GibParticle(center.x, center.y,
                         Math.cos(Math.random() * Math.PI * 2) * Math.random() * 4, Math.sin(Math.random() * Math.PI * 2) * Math.random() * 4,
-                        i, "gib" + randomUnsecureUUID()
+                        i, "gib_" + this.id + "_" + (i + o)
                     )
                 );
             }
