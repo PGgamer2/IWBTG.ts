@@ -1,6 +1,6 @@
 import AudioManager from "../AudioManager";
 import FakePlayerObject from "../objects/player/FakePlayerObject";
-import SpriteObject from "../objects/SpriteObject";
+import { SpriteObject, AnimatedSpriteObject } from "../objects/SpriteObject";
 import TileObject from "../objects/TileObject";
 import { Sprites } from "../SpriteManager";
 import BasicLevel from "./BasicLevel";
@@ -21,6 +21,9 @@ export default class SaveSelectMenu extends BasicLevel {
         }
 
         // Clouds
+        for (let i = 0; i < 6; i++) {
+            this.objects.push(new AnimatedSpriteObject("cloud" + i, Math.random() * 800, 10 + Math.random() * 300, 112, 32, Sprites.Cloud, 0.5));
+        }
 
         this.objects.push(new FakePlayerObject());
     }
@@ -37,6 +40,13 @@ export default class SaveSelectMenu extends BasicLevel {
             this.objects[i].polygon.pos.x -= SaveSelectMenu.scrollVel * delta;
             if (this.objects[i].polygon.pos.x < -111)
                 this.objects[i].polygon.pos.x = 850 + (Math.random() - 0.5) * 100;
+        }
+        for (let i = 9; i < 15; i++) {
+            this.objects[i].polygon.pos.x -= SaveSelectMenu.scrollVel * delta;
+            if (this.objects[i].polygon.pos.x < -112) {
+                this.objects[i].polygon.pos.x = 850 + (Math.random() - 0.5) * 100;
+                this.objects[i].polygon.pos.y = 10 + Math.random() * 300;
+            }
         }
 
         ctx.fillStyle = "#C4D7F7";

@@ -2,7 +2,7 @@ import Polygon from '../SAT/Polygon';
 import Response from '../SAT/Response';
 import Vector from '../SAT/Vector';
 import BasicObject from './BasicObject';
-import SpriteObject from './SpriteObject';
+import { SpriteObject } from './SpriteObject';
 import PlayerObject from './player/PlayerObject';
 import { Sprite, Sprites } from '../SpriteManager';
 

@@ -11,6 +11,7 @@ export class ImageList {
     public static TILEMAP_MASTER: HTMLImageElement = ImageList.register("assets/textures/objects/tileMaster.png");
     public static SPIKE: HTMLImageElement = ImageList.register("assets/textures/objects/sprSpike.png");
     public static BROCCOLI: HTMLImageElement = ImageList.register("assets/textures/objects/bgBroccoli.png");
+    public static KUMO_PLATFORM: HTMLImageElement = ImageList.register("assets/textures/objects/sprKumoPlatform.png");
 
     public static PLAYER: HTMLImageElement = ImageList.register("assets/textures/objects/player/sprPlayer.png");
     public static GORE: HTMLImageElement = ImageList.register("assets/textures/objects/player/sprGore.png");
@@ -45,6 +46,8 @@ export namespace Sprites {
     export const SpikeRight: Sprite = new Sprite(ImageList.SPIKE, 32, 0, 32, 32);
     export const SpikeDown: Sprite = new Sprite(ImageList.SPIKE, 64, 0, 32, 32);
     export const SpikeLeft: Sprite = new Sprite(ImageList.SPIKE, 96, 0, 32, 32);
+
+    export const Cloud: Sprite[] = [new Sprite(ImageList.KUMO_PLATFORM, 0, 0, 112, 32), new Sprite(ImageList.KUMO_PLATFORM, 112, 0, 112, 32)];
     
     export const DeathMessage: Sprite = new Sprite(ImageList.GAMEOVER, 0, 0, 800, 188);
 }
