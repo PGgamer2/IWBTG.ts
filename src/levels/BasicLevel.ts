@@ -1,7 +1,8 @@
 import BasicObject from '../objects/BasicObject';
 import Game from '../Game';
+import { IDisposable, InstanceFabric } from '../utils/Interfaces';
 import Vector from '../SAT/Vector';
-export default abstract class BasicLevel {
+export default abstract class BasicLevel implements IDisposable, InstanceFabric<BasicLevel> {
     public objects: Array<BasicObject> = [];
     protected removeQueue: Array<string> = [];
 
@@ -62,5 +63,5 @@ export default abstract class BasicLevel {
         }
     }
 
-    public abstract instanceFabric(): BasicLevel;
+    public abstract instantiate(): BasicLevel;
 }

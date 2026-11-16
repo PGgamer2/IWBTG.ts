@@ -1,7 +1,7 @@
 import Game from '../../Game';
 import BasicObject from '../BasicObject';
 import BulletObject from './BulletObject';
-import { randomUnsecureUUID, bufferDrawImage } from '../../Utils';
+import { randomUnsecureUUID, bufferDrawImage } from '../../utils/CommonUtils';
 import Vector from '../../SAT/Vector';
 import BloodParticle from './BloodParticle';
 import GibParticle from './GibParticle';

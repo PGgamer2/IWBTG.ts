@@ -1,9 +1,10 @@
 import Game from '../Game';
+import { IDisposable } from '../utils/Interfaces';
 import SAT from '../SAT/SAT';
 import Response from '../SAT/Response';
 import Polygon from '../SAT/Polygon';
 import Vector from '../SAT/Vector';
-export default abstract class BasicObject {
+export default abstract class BasicObject implements IDisposable {
     public polygon: Polygon;
     public collision: boolean = true;
     public readonly id: string;

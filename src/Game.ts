@@ -37,7 +37,7 @@ export default class Game {
         if (Game.isButtonDown('r')) {
             if (!Game.isPushingReload) {
                 this.level.dispose();
-                this.level = this.level.instanceFabric();
+                this.level = this.level.instantiate();
             }
             Game.isPushingReload = true;
         } else Game.isPushingReload = false;

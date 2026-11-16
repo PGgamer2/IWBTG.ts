@@ -19,7 +19,7 @@ export default class TestLevel extends BasicLevel {
         this.objects.push(new SpikeObject("spike2", 288, 352, 0));
     }
 
-    public instanceFabric(): BasicLevel {
+    public instantiate(): BasicLevel {
         return new TestLevel();
     }
 }
