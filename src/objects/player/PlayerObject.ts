@@ -5,10 +5,10 @@ import { randomUnsecureUUID, bufferDrawImage } from '../../utils/CommonUtils';
 import Vector from '../../SAT/Vector';
 import BloodParticle from './BloodParticle';
 import GibParticle from './GibParticle';
-import DeathMessage from './DeathMessage';
 import AudioManager from '../../AudioManager';
 import Polygon from '../../SAT/Polygon';
-import { ImageList } from '../../SpriteManager';
+import { ImageList, Sprites } from '../../SpriteManager';
+import { SpriteObject } from '../SpriteObject';
 export default class PlayerObject extends BasicObject {
     public static readonly velocity: number = 175;
     public static readonly gravity: number = 24;
@@ -115,7 +115,9 @@ export default class PlayerObject extends BasicObject {
             }
         }
         AudioManager.playMusic("assets/music/gameover.ogg", false);
-        Game.level.objects.push(new DeathMessage());
+        let deathMessage: SpriteObject = new SpriteObject("death_message", 400 - 350, 304 - 82, 700, 164, Sprites.DeathMessage);
+        deathMessage.collision = false;
+        Game.level.objects.push(deathMessage);
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
