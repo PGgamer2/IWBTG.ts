@@ -6,14 +6,14 @@ export default class TileObject extends BasicObject {
     public yRepeat: number;
     public tileWidth: number;
     public tileHeight: number;
-    public order: number[] = new Array(0);
+    public order: number[] = [];
 
-    constructor(id: string, x: number, y: number, xRepeat: number, yRepeat: number, sprites: Sprite[], order?: number[]) {
-        super(id, x * sprites[0].w, y * sprites[0].h, xRepeat * sprites[0].w, yRepeat * sprites[0].h);
+    constructor(id: string, x: number, y: number, xRepeat: number, yRepeat: number, sprites: Sprite[], order?: number[], tileWidth: number = sprites[0].w, tileHeight: number = sprites[0].h) {
+        super(id, x * tileWidth, y * tileHeight, xRepeat * tileWidth, yRepeat * tileHeight);
         this.xRepeat = xRepeat;
         this.yRepeat = yRepeat;
-        this.tileWidth = sprites[0].w;
-        this.tileHeight = sprites[0].h;
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
         this.spriteList = sprites;
         if (order !== undefined) this.order = order;
     }
