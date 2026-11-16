@@ -1,10 +1,6 @@
 export class ImageList {
     private static IMAGES: HTMLImageElement[] | undefined = [];
 
-    public static dispose(): void {
-        delete ImageList.IMAGES;
-    }
-
     public static register(src: string): HTMLImageElement {
         let img: HTMLImageElement = new Image();
         img.src = src;
