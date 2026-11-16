@@ -31,7 +31,11 @@ export default class Game {
         ctx.translate(Game.camera.x, Game.camera.y);
         ctx.rotate(Game.camera.angle);
         ctx.scale(Game.camera.sizeX * (Game.canvas.width / 800), Game.camera.sizeY * (Game.canvas.height / 608));
-        Game.level.update(ctx, (timestamp - Game.lastTimestamp) / 1000);
+        try {
+            Game.level.update(ctx, (timestamp - Game.lastTimestamp) / 1000);
+        } catch(e: unknown) {
+            console.error(e);
+        }
         ctx.restore();
 
         // Reload level
