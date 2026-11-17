@@ -64,8 +64,8 @@ export default class PlayerObject extends BasicObject {
             }
             this.jumpKeyTime += delta;
             if (this.jumpKeyTime < 0.3) {
-                if (this.availableJumps == 1) this.dy = -220 * delta;
-                else this.dy = -180 * delta;
+                if (this.availableJumps == 1) this.dy = -235 * delta;
+                else this.dy = -170 * delta;
             }
         } else this.jumpKeyTime = 0;
 
@@ -121,8 +121,9 @@ export default class PlayerObject extends BasicObject {
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
-        this.frameTimer = (this.frameTimer + delta) % 0.20;
-        let frame: number = Math.floor(this.frameTimer * 4 / 0.20);
+        this.frameTimer = (this.frameTimer + delta) % 0.40;
+        let slowFrame: number = Math.floor(this.frameTimer * 4 / 0.40);
+        let fastFrame: number = Math.floor(this.frameTimer * 2 / 0.10);
 
         ctx.save();
         if (this.lookingDirection == -1) {
@@ -140,17 +141,17 @@ export default class PlayerObject extends BasicObject {
             } else if (this.jumpKeyTime != 0 && this.jumpKeyTime < 0.04) {
                 ctx.drawImage(bufferDrawImage(ImageList.PLAYER, 32, 64, 32, 32), 0, 0, 32, 32);
             } else {
-                ctx.drawImage(bufferDrawImage(ImageList.PLAYER, (frame % 2) * 32 + 64, 64, 32, 32), 0, 0, 32, 32);
+                ctx.drawImage(bufferDrawImage(ImageList.PLAYER, (fastFrame % 2) * 32 + 64, 64, 32, 32), 0, 0, 32, 32);
             }
         } else if (!this.onGround) {
             // Falling
-            ctx.drawImage(bufferDrawImage(ImageList.PLAYER, (frame % 2) * 32, 96, 32, 32), 0, 0, 32, 32);
+            ctx.drawImage(bufferDrawImage(ImageList.PLAYER, (fastFrame % 2) * 32, 96, 32, 32), 0, 0, 32, 32);
         } else if (this.dx != 0) {
             // Running
-            ctx.drawImage(bufferDrawImage(ImageList.PLAYER, frame * 32, 32, 32, 32), 0, 0, 32, 32);
+            ctx.drawImage(bufferDrawImage(ImageList.PLAYER, (fastFrame % 4) * 32, 32, 32, 32), 0, 0, 32, 32);
         } else {
             // Idle
-            ctx.drawImage(bufferDrawImage(ImageList.PLAYER, frame * 32, 0, 32, 32), 0, 0, 32, 32);
+            ctx.drawImage(bufferDrawImage(ImageList.PLAYER, slowFrame * 32, 0, 32, 32), 0, 0, 32, 32);
         }
         ctx.restore();
     }
