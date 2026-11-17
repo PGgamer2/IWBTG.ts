@@ -42,8 +42,7 @@ export default class Game {
         // Reload level
         if (Game.isButtonDown('r')) {
             if (!Game.isPushingReload) {
-                this.level.dispose();
-                this.level = this.level.instantiate();
+                this.loadSave();
             }
             Game.isPushingReload = true;
         } else Game.isPushingReload = false;
@@ -51,7 +50,7 @@ export default class Game {
         Game.lastTimestamp = timestamp;
     }
 
-    public static loadSave(save: number): void {
+    public static loadSave(save?: number): void {
         this.level.dispose();
         this.level = new TestLevel(); //TODO
     }
