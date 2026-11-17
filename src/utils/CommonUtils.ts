@@ -16,13 +16,13 @@ const bufferCtx: CanvasRenderingContext2D = (() => {
 })();
 
 /**
- * Draws an image to the (cleaned) buffer canvas and returns the canvas itself. Can be used to draw a part of an image to the main canvas without transform-caused artifacts.
+ * Draws an image to the (cleaned) buffer canvas. Can be used to draw a part of an image to the main canvas without transform-caused artifacts.
  * @param image an element to draw into the context.
  * @param sx x-axis coordinate of the source image's top left corner
  * @param sy y-axis coordinate of the source image's top left corner
  * @param sw width of the source image region to draw
  * @param sh height of the source image region to draw
- * @returns 
+ * @returns the buffer canvas
  */
 export function bufferDrawImage(image: CanvasImageSource, sx: number, sy: number, sw: number, sh: number): HTMLCanvasElement {
     bufferCanvas.width = sw;
