@@ -15,7 +15,7 @@ export class SpriteObject extends BasicObject {
     public update(delta: number): void {}
 
     public draw(ctx: CanvasRenderingContext2D, delta: number) {
-        ctx.drawImage(this.sprite.source, this.sprite.x, this.sprite.y, this.sprite.w, this.sprite.h, this.polygon.pos.x, this.polygon.pos.y, this.width, this.height);
+        ctx.drawImage(this.sprite.source, this.sprite.x, this.sprite.y, this.sprite.w, this.sprite.h, this.polygon.pos.x | 0, this.polygon.pos.y | 0, this.width, this.height);
     }
 }
 
@@ -39,6 +39,6 @@ export class AnimatedSpriteObject extends BasicObject {
     public draw(ctx: CanvasRenderingContext2D, delta: number) {
         this.frameTimer = (this.frameTimer + delta) % this.animDuration;
         let i: number = Math.floor(this.frameTimer * this.sprites.length / this.animDuration);
-        ctx.drawImage(this.sprites[i].source, this.sprites[i].x, this.sprites[i].y, this.sprites[i].w, this.sprites[i].h, this.polygon.pos.x, this.polygon.pos.y, this.width, this.height);
+        ctx.drawImage(this.sprites[i].source, this.sprites[i].x, this.sprites[i].y, this.sprites[i].w, this.sprites[i].h, this.polygon.pos.x | 0, this.polygon.pos.y | 0, this.width, this.height);
     }
 }

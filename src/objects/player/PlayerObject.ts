@@ -126,11 +126,11 @@ export default class PlayerObject extends BasicObject {
 
         ctx.save();
         if (this.lookingDirection == -1) {
-            ctx.translate(Game.canvas.width - this.polygon.pos.x, this.polygon.pos.y);
+            ctx.translate(Game.canvas.width - this.polygon.pos.x | 0, this.polygon.pos.y | 0);
             ctx.scale(-1, 1);
-            ctx.translate(Game.canvas.width - this.polygon.pos.x * 2 - 32, 0);
+            ctx.translate(Game.canvas.width - (this.polygon.pos.x | 0) * 2 - 32, 0);
         } else {
-            ctx.translate(this.polygon.pos.x, this.polygon.pos.y);
+            ctx.translate(this.polygon.pos.x | 0, this.polygon.pos.y | 0);
         }
 
         if (this.dy < 0) {
