@@ -2,7 +2,7 @@ import AudioManager from "../AudioManager";
 import FakePlayerObject from "../objects/player/FakePlayerObject";
 import { SpriteObject, AnimatedSpriteObject } from "../objects/SpriteObject";
 import TileObject from "../objects/TileObject";
-import { Sprites } from "../SpriteManager";
+import { ImageList, Sprites } from "../SpriteManager";
 import BasicLevel from "./BasicLevel";
 
 export default class SaveSelectMenu extends BasicLevel {
@@ -82,11 +82,32 @@ export default class SaveSelectMenu extends BasicLevel {
     }
 
     public drawUI(ctx: CanvasRenderingContext2D, delta: number): void {
+        ctx.font = "19px comicsans";
+        ctx.textAlign = "center";
+        // top
         ctx.fillStyle = "#000000";
-        ctx.fillRect(32, 32, 736, 32);      // top
-        ctx.fillRect(64, 160, 128, 288);    // save0
-        ctx.fillRect(320, 160, 128, 288);   // save1
-        ctx.fillRect(576, 160, 128, 288);   // save2
+        ctx.fillRect(32, 32, 736, 32);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText("* Select Your Saved Game *", 384, 56);
+        ctx.font = "16px comicsans";
+        // save0
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(64, 160, 128, 288);
+        ctx.drawImage(ImageList.NEWGAME, 64, 192);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText("SAVE GAME 1", 128, 182);
+        // save1
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(320, 160, 128, 288);
+        ctx.drawImage(ImageList.NEWGAME, 320, 192);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText("SAVE GAME 2", 384, 182);
+        // save2
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(576, 160, 128, 288);
+        ctx.drawImage(ImageList.NEWGAME, 576, 192);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText("SAVE GAME 3", 640, 182);
     }
 
     public instantiate(): BasicLevel {

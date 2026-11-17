@@ -18,6 +18,7 @@ export class ImageList {
     public static BULLET: HTMLImageElement = ImageList.register("assets/textures/objects/player/sprBullet.png");
 
     public static GAMEOVER: HTMLImageElement = ImageList.register("assets/textures/ui/sprGameOver.png");
+    public static NEWGAME: HTMLImageElement = ImageList.register("assets/textures/ui/sprNewFile.png");
 }
 
 export class Sprite {
