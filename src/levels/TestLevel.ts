@@ -7,6 +7,7 @@ import { Sprites } from '../SpriteManager';
 export default class TestLevel extends BasicLevel {
     constructor() {
         super();
+        this.backgroundStyle = "#C4D7F7";
         AudioManager.playMusic("assets/music/begins.ogg");
         
         this.objects.push(new PlayerObject(32, 512));

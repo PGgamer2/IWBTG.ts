@@ -23,9 +23,10 @@ export default class Game {
         Game.canvas.width = scale * 25;
         Game.canvas.height = scale * 19;
         // Get context and clear
-        let ctx = Game.canvas.getContext("2d")!;
+        let ctx = Game.canvas.getContext("2d", {desynchronized: true, alpha: false})!;
         ctx.imageSmoothingEnabled = false;
-        ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
+        ctx.fillStyle = Game.level.backgroundStyle || "#000000";
+        ctx.fillRect(0, 0, Game.canvas.width, Game.canvas.height);
 
         ctx.save();
         ctx.translate(Game.camera.x, Game.camera.y);

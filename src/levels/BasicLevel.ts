@@ -3,8 +3,9 @@ import Game from '../Game';
 import { IDisposable, InstanceFabric } from '../utils/Interfaces';
 import Vector from '../SAT/Vector';
 export default abstract class BasicLevel implements IDisposable, InstanceFabric<BasicLevel> {
-    public objects: Array<BasicObject> = [];
-    protected removeQueue: Array<string> = [];
+    public backgroundStyle: string | CanvasGradient | CanvasPattern = "#000000";
+    public objects: BasicObject[] = [];
+    protected removeQueue: string[] = [];
 
     public update(ctx: CanvasRenderingContext2D, delta: number): void {
         for (let i = 0; i < this.objects.length; i++) {

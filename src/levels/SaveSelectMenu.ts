@@ -10,6 +10,7 @@ export default class SaveSelectMenu extends BasicLevel {
 
     constructor() {
         super();
+        this.backgroundStyle = "#C4D7F7";
         AudioManager.playMusic("assets/music/saveselect.ogg");
 
         this.objects.push(new TileObject("grass", 0, 17, 26, 1, [Sprites.GrassRedBlock]));
@@ -74,11 +75,8 @@ export default class SaveSelectMenu extends BasicLevel {
             }
         }
 
-        ctx.fillStyle = "#C4D7F7";
-        ctx.fillRect(0, 0, 800, 608);
         ctx.fillStyle = "#88391E";
         ctx.fillRect(0, 544, 800, 64);
-        ctx.fillStyle = "#000000";
         super.update(ctx, delta);
         this.drawUI(ctx, delta);
     }
