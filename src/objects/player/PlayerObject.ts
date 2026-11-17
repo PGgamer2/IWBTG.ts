@@ -35,7 +35,7 @@ export default class PlayerObject extends BasicObject {
     }
 
     public update(delta: number): void {
-        this.dy += PlayerObject.gravity * delta;
+        this.dy += PlayerObject.gravity * Math.max(delta, Number.EPSILON);
         this.dx = 0;
 
         if (Game.isButtonDown('ArrowRight')) {
@@ -71,10 +71,14 @@ export default class PlayerObject extends BasicObject {
 
         if (this.dx != 0) this.lookingDirection = Math.sign(this.dx);
         this.dy = Math.max(Math.min(this.dy, 10.666), -10.666);
-        let previousPos: Vector = (new Vector()).copy(this.polygon.pos);
+        let expectedPos: Vector = (new Vector(this.dx, this.dy)).add(this.polygon.pos);
         this.onGround = false;
-        if (this.moveBy(this.dx, this.dy)) {
-            if (this.dy > 0 && this.polygon.pos.y == previousPos.y) {
+        if (this.moveBy(this.dx, this.dy) && this.polygon.pos.y != expectedPos.y) {
+            if (this.dy < 0) {
+                // Hit the ceiling
+                this.dy = 0;
+                this.jumpKeyTime = 0.3;
+            } else {
                 // On ground
                 this.dy = 1;
                 this.onGround = true;
