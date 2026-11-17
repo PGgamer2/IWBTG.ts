@@ -6,7 +6,7 @@ import { ImageList, Sprites } from "../SpriteManager";
 import BasicLevel from "./BasicLevel";
 
 export default class SaveSelectMenu extends BasicLevel {
-    public static readonly scrollVel: number = 75;
+    public static readonly scrollVel: number = 40;
 
     constructor() {
         super();

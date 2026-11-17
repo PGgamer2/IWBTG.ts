@@ -121,8 +121,8 @@ export default class PlayerObject extends BasicObject {
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number): void {
-        this.frameTimer = (this.frameTimer + delta) % 0.40;
-        let frame: number = Math.floor(this.frameTimer / 0.10);
+        this.frameTimer = (this.frameTimer + delta) % 0.20;
+        let frame: number = Math.floor(this.frameTimer * 4 / 0.20);
 
         ctx.save();
         if (this.lookingDirection == -1) {
