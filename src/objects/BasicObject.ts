@@ -9,13 +9,17 @@ export default abstract class BasicObject implements IDisposable {
     public collision: boolean = true;
     public readonly id: string;
 
-    constructor(id: string, x: number, y: number, w: number, h: number) {
+    constructor(id: string, x: number = 0, y: number = 0, w: number = 0, h: number = 0) {
         this.id = id;
-        if (w == 0 && h == 0) this.collision = false;
-        this.polygon = new Polygon(new Vector(x, y), [
-            new Vector(), new Vector(0, h),
-            new Vector(w, h), new Vector(w, 0)
-        ]);
+        if (w == 0 && h == 0) {
+            this.collision = false;
+            this.polygon = new Polygon();
+        } else {
+            this.polygon = new Polygon(new Vector(x, y), [
+                new Vector(), new Vector(0, h),
+                new Vector(w, h), new Vector(w, 0)
+            ]);
+        }
     }
 
     public moveBy(x: number, y: number): boolean {
