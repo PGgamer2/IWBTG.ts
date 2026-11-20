@@ -7,6 +7,7 @@ import BasicLevel from "./BasicLevel";
 
 export default class SaveSelectMenu extends BasicLevel {
     public static readonly scrollVel: number = 40;
+    public fakePlayer: FakePlayerObject;
 
     constructor() {
         super();
@@ -51,7 +52,8 @@ export default class SaveSelectMenu extends BasicLevel {
         this.objects.push(new SpriteObject("save2_2", 544, 160, 32, 288, Sprites.SimpleVBeam));
         this.objects.push(new SpriteObject("save2_3", 704, 160, 32, 288, Sprites.SimpleVBeam));
 
-        this.objects.push(new FakePlayerObject());
+        this.fakePlayer = new FakePlayerObject();
+        this.objects.push(this.fakePlayer);
     }
 
     public update(ctx: CanvasRenderingContext2D, delta: number): void {
@@ -91,18 +93,30 @@ export default class SaveSelectMenu extends BasicLevel {
         ctx.fillText("* Select Your Saved Game *", 384, 56);
         ctx.font = "16px comicsans";
         // save0
+        if (this.fakePlayer.selectedSave == 0) {
+            ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+            ctx.fillRect(32, 128, 192, 352);
+        }
         ctx.fillStyle = "#000000";
         ctx.fillRect(64, 160, 128, 288);
         ctx.drawImage(ImageList.NEWGAME, 64, 192);
         ctx.fillStyle = "#ffffff";
         ctx.fillText("SAVE GAME 1", 128, 182);
         // save1
+        if (this.fakePlayer.selectedSave == 1) {
+            ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+            ctx.fillRect(288, 128, 192, 352);
+        }
         ctx.fillStyle = "#000000";
         ctx.fillRect(320, 160, 128, 288);
         ctx.drawImage(ImageList.NEWGAME, 320, 192);
         ctx.fillStyle = "#ffffff";
         ctx.fillText("SAVE GAME 2", 384, 182);
         // save2
+        if (this.fakePlayer.selectedSave == 2) {
+            ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+            ctx.fillRect(544, 128, 192, 352);
+        }
         ctx.fillStyle = "#000000";
         ctx.fillRect(576, 160, 128, 288);
         ctx.drawImage(ImageList.NEWGAME, 576, 192);
