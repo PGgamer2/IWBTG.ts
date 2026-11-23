@@ -7,18 +7,17 @@ export default class AudioManager {
             audio.play();
             return audio;
         }
-        if (src === undefined) audio = new Audio();
-        else audio = new Audio(src);
+        audio = new Audio(src);
         audio.loop = loop;
         audio.volume = volume;
         AudioManager.audioMap.set(key, audio);
         audio.oncanplay = e => {
-            audio!.play().catch(err => {
+            audio.play().catch(err => {
                 console.warn(err);
-                audio!.setAttribute('muted', '');
-                audio!.muted = true;
+                audio.setAttribute('muted', '');
+                audio.muted = true;
             });
-            audio!.oncanplay = null;
+            audio.oncanplay = null;
         }
         return audio;
     }
